@@ -1,6 +1,7 @@
 # VDesk
 Launch programs on new virtual desktops.
 
+Windows10Interop code taken from http://stackoverflow.com/a/32417530
 
 #####Usage:
 
