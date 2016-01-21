@@ -1,7 +1,7 @@
 
 # VDesk
 
-Launch programs on virtual desktops. (Windows 10 only)
+Launches programs on their own virtual desktops, and closes the desktop when the program is closed. (Windows 10 only)
 
 Windows10Interop code taken from http://stackoverflow.com/a/32417530
 
