@@ -5,6 +5,10 @@ Launch programs on virtual desktops. (Windows 10 only)
 
 Windows10Interop code taken from http://stackoverflow.com/a/32417530
 
+#####Download:
+
+[VDesk.exe](https://github.com/eksime/VDesk/blob/master/VDesk/bin/Release/VDesk.exe)
+
 #####Usage:
 
 `vdesk program [args]`
