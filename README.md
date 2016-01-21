@@ -12,7 +12,7 @@ To launch notepad on a new desktop:
 
 `vdesk notepad`
 
-To launch a new VirtualBox vm on it's own virtual desktop:
+To launch a new VirtualBox vm fullscreen on it's own virtual desktop:
 
 `vdesk "C:\Path to Vbox\VirtualBox.exe" --comment "VM" --startvm "vm-id-no" --fullscreen`
 
