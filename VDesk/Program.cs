@@ -12,8 +12,7 @@ namespace VDesk {
 
       if (args.Length > 1) {
         String commandLineArgs = Environment.CommandLine.Remove(0, Environment.CommandLine.IndexOf(" ") + 2); //remove own executable name
-        commandLineArgs = commandLineArgs.Remove(0, args[0].Length + (commandLineArgs.StartsWith("\"") ? 3 : 1)); //remove second arg
-        proc.StartInfo.Arguments = commandLineArgs; //pass all other args through to second program.
+        proc.StartInfo.Arguments = commandLineArgs.Remove(0, args[0].Length + (commandLineArgs.StartsWith("\"") ? 3 : 1)); //remove second arg & pass all other args through to second program.
       }
 
       //Create a new desktop and launch the program; wait for the program to close, and remove the desktop.
