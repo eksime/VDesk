@@ -13,15 +13,12 @@
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/
+[Rr]elease/
 x64/
 x86/
 bld/
 [Oo]bj/
 [Aa]pp.publish/
-*.exe.config
-*.exe.manifest
-*.application
-*.vshost.exe
 
 # Visual Studio 2015 cache/options directory
 .vs/
