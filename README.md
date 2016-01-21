@@ -24,7 +24,7 @@ To launch a new VirtualBox vm fullscreen on it's own virtual desktop:
 
 For most shortcuts it is possible to append `vdesk` to the start of the target field in order to start the program on a new virtual desktop, for this to work `vdesk` must be in PATH.
 
-## Copyright noice
+## Copyright notice
 
 Copyright (C) 2016
 
