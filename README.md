@@ -23,6 +23,7 @@ For most shortcuts it is possible to append `vdesk` to the start of the target f
 ## Copyright noice
 
 VDesk - Launch programs on virtual desktops
+
 Copyright (C) 2016
 
 This program is free software: you can redistribute it and/or modify
