@@ -7,7 +7,7 @@ Windows10Interop code taken from http://stackoverflow.com/a/32417530
 
 #####Download:
 
-See the [Releases page](https://github.com/eksime/VDesk/releases/)
+See the [releases page](https://github.com/eksime/VDesk/releases/).
 
 #####Usage:
 
