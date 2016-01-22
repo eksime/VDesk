@@ -25,40 +25,45 @@ namespace VDesk {
       for (int i = Desktop.Count - 1; i < index; i++) 
         Desktop.Create();
       
-      //get the desktop, or create a new one, and switch to it
+      //get the desktop, or create a new one
       Desktop desk = index < 0 ? Desktop.Create() : Desktop.FromIndex(index);
-      desk.MakeVisible();
 
-      try {
-        //try starting the program
-        proc.Start();
+      if (!clArgs[executable].Equals("")) { //if we're launching a program:
+        try {
+          //swtich to the desktop and try starting the program
+          desk.MakeVisible();
+          proc.Start();
 
-      } catch (Win32Exception) {
-        //Error launching program.
-        Console.Error.WriteLine("Failed to start program.\nCheck executable path.");
-
-      } finally {
-        //If we created a desktop just for this program, remove it after the program has finished executing.
-        if (index < 0) {
-          proc.WaitForExit();
-          desk.Remove();
         }
+        catch (Win32Exception) {
+          //Error launching program.
+          Console.Error.WriteLine("Failed to start program.\nCheck executable path.");
 
+        }
+        finally {
+          //If we created a desktop just for this program, remove it after the program has finished executing.
+          if (index < 0) {
+            proc.WaitForExit();
+            desk.Remove();
+          }
+
+        }
       }
 
+      Console.ReadLine();
       return;
     }
 
     static String[] parseArgs(String cla) {
       String[] ret = new string[3];
       cla = cla.Remove(0, cla.IndexOf("  ")).Trim(); //remove executable name
-      GroupCollection groups = Regex.Match(cla, "(?:(-?\\d+) )?(\"[^\"]+\"|[\\w-:_/.\\\\]+) ?(.*)").Groups;
+      GroupCollection groups = Regex.Match(cla, "(?:(-?\\d+) ?)?(\"[^\"]+\"|[\\w-:_\\/.\\\\]+)? ?(.*)").Groups;
       
       for (int i = 1; i < 4; i++)
-        ret[i-1] = groups[i].Value;
+        ret[i-1] = groups[i].Value; //set return values
       
       if (ret[0].Equals(""))
-        ret[0] = "-1";
+        ret[0] = "0";  //if index is empty, set index = 0
 
       return ret;
     }
