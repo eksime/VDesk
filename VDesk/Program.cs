@@ -5,6 +5,7 @@ using System.Diagnostics;
 namespace VDesk {
   static class Program {
     static void Main(string[] args) {
+      if (Environment.OSVersion.Version.Major != 10) return; //run only on Windows 10
       if (args.Length == 0) return; //need at least 1 arg.
 
       //remove own executable name from command line
