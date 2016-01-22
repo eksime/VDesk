@@ -11,12 +11,16 @@ See the [releases page](https://github.com/eksime/VDesk/releases/).
 
 #####Usage:
 
-`vdesk program [args]`
+`vdesk [n] program [args]`
 
 #####Examples:
 To launch notepad on a new desktop:
 
 `vdesk notepad`
+
+To launch notepad on desktop 3 and open `C:\some file.txt`:
+
+`vdesk 3 notepad "C:\some file.txt"`
 
 To launch a new VirtualBox vm fullscreen on it's own virtual desktop:
 
