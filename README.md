@@ -13,9 +13,11 @@ See the [releases page](https://github.com/eksime/VDesk/releases/).
 
 Add vdesk to system or user PATH first.
 
-`vdesk [n] command [args]`
+`vdesk [n] [command [args]]`
 
 `n` specifies the index of the VD to launch the program on, and is optional.
+
+If the command is omitted vdesk will launch `n` virtual desktops.
 
 Generally, prepending a shortcut's 'target' field with `vdesk` will have it launch in it's own virtual desktop. Command line arguments should be preserved.
 
