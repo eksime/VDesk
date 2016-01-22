@@ -11,7 +11,13 @@ See the [releases page](https://github.com/eksime/VDesk/releases/).
 
 #####Usage:
 
-`vdesk [n] program [args]`
+Add vdesk to system or user PATH first.
+
+`vdesk [n] command [args]`
+
+`n` specifies the index of the VD to launch the program on, and is optional.
+
+Generally, prepending a shortcut's 'target' field with `vdesk` will have it launch in it's own virtual desktop. Command line arguments should be preserved.
 
 #####Examples:
 To launch notepad on a new desktop:
@@ -25,8 +31,6 @@ To launch notepad on desktop 3 and open `C:\some file.txt`:
 To launch a new VirtualBox vm fullscreen on it's own virtual desktop:
 
 `vdesk "C:\Path to Vbox\VirtualBox.exe" --comment "VM" --startvm "vm-id-no" --fullscreen`
-
-For most shortcuts it is possible to append `vdesk` to the start of the target field in order to start the program on a new virtual desktop, for this to work `vdesk` must be in PATH.
 
 ## Copyright notice
 
