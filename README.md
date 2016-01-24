@@ -11,8 +11,6 @@ See the [releases page](https://github.com/eksime/VDesk/releases/).
 
 #####Usage:
 
-Add vdesk to system or user PATH first.
-
 `vdesk [n] [command [args]]`
 
 `n` specifies the index of the VD to launch the program on, and is optional.
@@ -20,6 +18,8 @@ Add vdesk to system or user PATH first.
 If the command is omitted vdesk will launch `n` virtual desktops.
 
 Generally, prepending a shortcut's 'target' field with `vdesk` will have it launch in it's own virtual desktop. Command line arguments should be preserved.
+
+VDesk can provide an "Open in new virtual desktop" context menu item, this can be done by running `vdesk -install`. To remove the context menu entries, run `vdesk -uninstall`.
 
 #####Examples:
 To launch notepad on a new desktop:
