@@ -24,16 +24,19 @@ namespace VDesk {
     }
 
     static void install() {
-      RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Software\Classes\*\shell", true);
+      RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Software\Classes\*", true);
 
-      RegistryKey vdesk = key.CreateSubKey("VDesk");
+      RegistryKey shell = key.CreateSubKey("shell");
+
+      RegistryKey vdesk = shell.CreateSubKey("VDesk");
       vdesk.SetValue("", "Open in new virtual desktop");
 
       RegistryKey command = vdesk.CreateSubKey("command");
       command.SetValue("", "\"" + System.Reflection.Assembly.GetEntryAssembly().Location + "\" \"%1\" %*");
-
+      
       command.Close();
       vdesk.Close();
+      shell.Close();
       key.Close();
     }
 
