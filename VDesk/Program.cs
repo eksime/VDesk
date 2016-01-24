@@ -29,7 +29,7 @@ namespace VDesk {
       RegistryKey shell = key.CreateSubKey("shell");
 
       RegistryKey vdesk = shell.CreateSubKey("VDesk");
-      vdesk.SetValue("", "Open in new virtual desktop");
+      vdesk.SetValue("", "Open in new Virtual Desktop");
 
       RegistryKey command = vdesk.CreateSubKey("command");
       command.SetValue("", "\"" + System.Reflection.Assembly.GetEntryAssembly().Location + "\" \"%1\" %*");
