@@ -17,7 +17,7 @@ See the [releases page](https://github.com/eksime/VDesk/releases/).
 
 If the command is omitted vdesk will launch `n` virtual desktops.
 
-Generally, prepending a shortcut's 'target' field with `vdesk` will have it launch in it's own virtual desktop. Command line arguments should be preserved.
+Generally, prepending a shortcut's 'target' field with `vdesk` will have it launch in its own virtual desktop. Command line arguments should be preserved.
 
 VDesk can provide an "Open in new virtual desktop" context menu item, this can be done by running `vdesk -install`. To remove the context menu entries, run `vdesk -uninstall`.
 
@@ -30,7 +30,7 @@ To launch notepad on desktop 3 and open `C:\some file.txt`:
 
 `vdesk 3 notepad "C:\some file.txt"`
 
-To launch a new VirtualBox vm fullscreen on it's own virtual desktop:
+To launch a new VirtualBox vm fullscreen on its own virtual desktop:
 
 `vdesk "C:\Path to Vbox\VirtualBox.exe" --comment "VM" --startvm "vm-id-no" --fullscreen`
 
