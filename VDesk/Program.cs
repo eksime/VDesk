@@ -94,7 +94,7 @@ namespace VDesk {
 
       GroupCollection groups = Regex.Match(cla, @"(\""[^\""]+\""|[\w-:_\/\.\\]+) +(?:(-?\d+) ?)?(\""[^\""]+\""|[\w-:_\/.\\]+)? ?(.*)").Groups;
       
-      for (int i = 1; i < 4; i++)
+      for (int i = 1; i < 5; i++)
         ret[i-1] = groups[i].Value; //set return values
       
       if (ret[desktopIndex].Equals(""))
