@@ -1,9 +1,4 @@
-
 # VDesk
-
-Provides options for launching programs on virtual desktops. (Windows 10 only)
-
-Windows10Interop code taken from http://stackoverflow.com/a/32417530
 
 #####Download:
 
@@ -11,28 +6,44 @@ See the [releases page](https://github.com/eksime/VDesk/releases/).
 
 #####Usage:
 
-`vdesk [n] [command [args]]`
+Create n new desktops:
 
-`n` specifies the index of the VD to launch the program on, and is optional.
+`vdesk create [n]`
 
-If the command is omitted vdesk will launch `n` virtual desktops.
+Create up to n desktops:
 
-Generally, prepending a shortcut's 'target' field with `vdesk` will have it launch in its own virtual desktop. Command line arguments should be preserved.
+`vdesk create-max [n]`
 
-VDesk can provide an "Open in new virtual desktop" context menu item, this can be done by running `vdesk -install`. To remove the context menu entries, run `vdesk -uninstall`.
+Run a program on a new desktop:
+
+`vdesk run [command] [args]`
+
+Run a program on a new desktop, and switch to it:
+
+`vdesk run-switch [command] [<args>]`
+
+Run a program on desktop n:
+
+`vdesk run-on [n] [command] [<args>]`
+
+Run a program on desktop n, and switch to it:
+
+`vdesk run-on-switch [n] [command] [<args>]`
+
+Generally, prepending a shortcut's 'target' field with `vdesk run` will have it launch in its own virtual desktop. Command line arguments should be preserved.
 
 #####Examples:
 To launch notepad on a new desktop:
 
-`vdesk notepad`
+`vdesk run notepad`
 
 To launch notepad on desktop 3 and open `C:\some file.txt`:
 
-`vdesk 3 notepad "C:\some file.txt"`
+`vdesk run-on 3 notepad "C:\some file.txt"`
 
-To launch a new VirtualBox vm fullscreen on its own virtual desktop:
+To launch a new VirtualBox vm fullscreen on its own virtual desktop, and switch to it:
 
-`vdesk "C:\Path to Vbox\VirtualBox.exe" --comment "VM" --startvm "vm-id-no" --fullscreen`
+`vdesk run-switch "C:\Path to Vbox\VirtualBox.exe" --comment "VM" --startvm "vm-id-no" --fullscreen`
 
 ## Copyright notice
 

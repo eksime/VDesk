@@ -24,51 +24,62 @@ namespace vdesk {
       }
 
       Parser parser = new Parser(with => with.IgnoreUnknownArguments = true);
-      var result = parser.ParseArguments<RunOptions, RunOnOptions, CreateOptions>(args)
-        .WithParsed<RunOptions>(o => {
-          int offset = fullCommandline.IndexOf(o.processName);
-          string procArgs = string.Concat(fullCommandline.Skip(offset + o.processName.Length).SkipWhile(c => c.Equals('"')).SkipWhile(c => c.Equals(' ')));
-          try {
-            Process proc = Process.Start(o.processName, procArgs);
-            int lastDesktopIndex = VirtualDesktop.GetDesktops().Length + 1;
+      try {
+        var result = parser.ParseArguments<CreateOptions, CreateMaxOptions, RunOptions, RunSwitchOptions, RunOnOptions, RunOnSwitchOptions>(args)
+        .WithParsed<CreateOptions>(o => {
 
-            VirtualDesktop lastDesktop = launchProcessOnDesktop(proc, lastDesktopIndex);
-
-            lastDesktop.Switch();
-            proc.WaitForExit();
-            lastDesktop.Remove();
-          } catch (Win32Exception) {
-            Console.Error.WriteLine("Error: Unable to launch program.");
-            return;
+          for (int i = 0; i < o.desktopIndex; i++) {
+            VirtualDesktop.Create();
           }
+
+        })
+        .WithParsed<CreateMaxOptions>(o => {
+
+          createMaxDesktops(o.desktopIndex);
+
+        })
+        .WithParsed<RunOptions>(o => {
+
+          string procArgs = getProcessArguments(fullCommandline, o.processName);
+
+          Process proc = Process.Start(o.processName, procArgs);
+          launchProcessOnDesktop(proc, VirtualDesktop.GetDesktops().Length + 1);
+
+        })
+        .WithParsed<RunSwitchOptions>(o => {
+
+          string procArgs = getProcessArguments(fullCommandline, o.processName);
+
+          Process proc = Process.Start(o.processName, procArgs);
+          int lastDesktopIndex = VirtualDesktop.GetDesktops().Length + 1;
+
+          VirtualDesktop lastDesktop = launchProcessOnDesktop(proc, lastDesktopIndex);
+          lastDesktop.Switch();
+
         })
         .WithParsed<RunOnOptions>(o => {
-          if (o.command.ToLower().Equals("run")) {
-            int offset = fullCommandline.IndexOf(o.processName);
-            string procArgs = string.Concat(fullCommandline.Skip(offset + o.processName.Length).SkipWhile(c => c.Equals('"')).SkipWhile(c => c.Equals(' ')));
-            try {
-              Process proc = Process.Start(o.processName, procArgs);
-              launchProcessOnDesktop(proc, o.desktopIndex);
-            }
-            catch (Win32Exception) {
-              Console.Error.WriteLine("Error: Unable to launch program.");
-              return;
-            }
-          }
-        })
-        .WithParsed<CreateOptions>(o => {
-          switch (o.command.ToLower()) {
-            case "new":
-              for (int i = 0; i < o.desktopIndex; i++) {
-                VirtualDesktop.Create();
-              }
-              break;
 
-            case "max":
-              createMaxDesktops(o.desktopIndex);
-              break;
-          }
+          string procArgs = getProcessArguments(fullCommandline, o.processName);
+
+          Process proc = Process.Start(o.processName, procArgs);
+          launchProcessOnDesktop(proc, o.desktopIndex);
+
+        })
+        .WithParsed<RunOnSwitchOptions>(o => {
+
+          int offset = fullCommandline.IndexOf(o.processName);
+          string procArgs = string.Concat(fullCommandline.Skip(offset + o.processName.Length).SkipWhile(c => c.Equals('"')).SkipWhile(c => c.Equals(' ')));
+
+          Process proc = Process.Start(o.processName, procArgs);
+          VirtualDesktop lastDesktop = launchProcessOnDesktop(proc, o.desktopIndex);
+
+          lastDesktop.Switch();
         });
+
+      } catch (Win32Exception) {
+        Console.Error.WriteLine("Error: Unable to launch program.");
+        return;
+      }
 
       Application.Current.Shutdown();
       return;
@@ -92,6 +103,11 @@ namespace vdesk {
 
     private VirtualDesktop getDesktopFromIndex(int n) {
       return VirtualDesktop.GetDesktops()[n - 1];
+    }
+
+    private string getProcessArguments(string fullCommandline, string procName) {
+      int offset = fullCommandline.IndexOf(procName);
+      return string.Concat(fullCommandline.Skip(offset + procName.Length).SkipWhile(c => c.Equals('"')).SkipWhile(c => c.Equals(' ')));
     }
 
   }
