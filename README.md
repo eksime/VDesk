@@ -1,10 +1,10 @@
 # VDesk
 
-#####Download:
+####Download:
 
 See the [releases page](https://github.com/eksime/VDesk/releases/).
 
-#####Usage:
+####Usage:
 
 Create n new desktops:
 
@@ -32,7 +32,7 @@ Run a program on desktop n, and switch to it:
 
 Generally, prepending a shortcut's 'target' field with `vdesk run` will have it launch in its own virtual desktop. Command line arguments should be preserved.
 
-#####Examples:
+####Examples:
 To launch notepad on a new desktop:
 
 `vdesk run notepad`
