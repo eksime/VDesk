@@ -6,6 +6,8 @@ See the [releases page](https://github.com/eksime/VDesk/releases/).
 
 ####Usage:
 
+*Please note that VDesk requires Windows 10, and does not allow the use of virtual desktops on other versions of Windows*
+
 Create n new desktops:
 
 `vdesk create [n]`
