@@ -30,7 +30,7 @@ Run a program on desktop n, and switch to it:
 
 `vdesk run-on-switch [n] [command] [<args>]`
 
-Generally, prepending a shortcut's 'target' field with `vdesk run` will have it launch in its own virtual desktop. Command line arguments should be preserved.
+Generally, prepending a shortcut's 'target' field with `vdesk run` will have it launch in its own virtual desktop. Command line arguments to applications should be preserved.
 
 ####Examples:
 To launch notepad on a new desktop:
