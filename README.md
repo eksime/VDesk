@@ -6,6 +6,8 @@ See the [releases page](https://github.com/eksime/VDesk/releases/).
 
 ####Usage:
 
+*Please note that VDesk requires Windows 10, and does not allow the use of virtual desktops on other versions of Windows*
+
 Create n new desktops:
 
 `vdesk create [n]`
@@ -30,7 +32,7 @@ Run a program on desktop n, and switch to it:
 
 `vdesk run-on-switch [n] [command] [<args>]`
 
-Generally, prepending a shortcut's 'target' field with `vdesk run` will have it launch in its own virtual desktop. Command line arguments should be preserved.
+Generally, prepending a shortcut's 'target' field with `vdesk run` will have it launch in its own virtual desktop. Command line arguments to applications should be preserved.
 
 ####Examples:
 To launch notepad on a new desktop:
