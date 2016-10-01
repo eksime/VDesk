@@ -14,74 +14,66 @@ namespace vdesk {
     public VDesk() {
       InitializeComponent();
 
-      string[] args = Environment.GetCommandLineArgs().Skip(1).ToArray();
-      string fullCommandline = Environment.CommandLine.Replace(Environment.GetCommandLineArgs()[0], "");
+      // Get commmandline args:
+      string[] args = Environment.GetCommandLineArgs().Skip(1).ToArray(); // args to vdesk as array
 
       if (!VirtualDesktop.IsSupported) {
-        Console.Error.WriteLine("Error: Virtual Desktops are not supported on this system.");
+        Console.Error.WriteLine("Error: Virtual Desktops are not supported on this system."); // probably running xp or something
         Application.Current.Shutdown();
         return;
       }
 
-      Parser parser = new Parser(with => with.IgnoreUnknownArguments = true);
+      Parser parser = new Parser(with => with.IgnoreUnknownArguments = true); // the args to pass to process.start are not handled by Parser
       try {
         var result = parser.ParseArguments<CreateOptions, CreateMaxOptions, RunOptions, RunSwitchOptions, RunOnOptions, RunOnSwitchOptions>(args)
-        .WithParsed<CreateOptions>(o => {
+          .WithParsed<CreateOptions>(o => {
+            // vdesk create [o.desktopIndex]
+            for (int i = 0; i < o.desktopIndex; i++) {
+              VirtualDesktop.Create();
+            }
 
-          for (int i = 0; i < o.desktopIndex; i++) {
-            VirtualDesktop.Create();
-          }
+          })
+          .WithParsed<CreateMaxOptions>(o => {
+            //vdesk create-max [o.desktopIndex]
+            createMaxDesktops(o.desktopIndex);
 
-        })
-        .WithParsed<CreateMaxOptions>(o => {
+          })
+          .WithParsed<RunOptions>(o => {
+            // vdesk run [o.processName] [<procArgs>]
+            Process proc = Process.Start(o.processName, getProcessArguments(Environment.CommandLine, o.processName));
+            launchProcessOnDesktop(proc, VirtualDesktop.GetDesktops().Length + 1);
 
-          createMaxDesktops(o.desktopIndex);
+          })
+          .WithParsed<RunSwitchOptions>(o => {
+            // vdesk run-switch [o.processName] [<procArgs>]
+            Process proc = Process.Start(o.processName, getProcessArguments(Environment.CommandLine, o.processName));
 
-        })
-        .WithParsed<RunOptions>(o => {
+            int lastDesktopIndex = VirtualDesktop.GetDesktops().Length + 1;
+            VirtualDesktop lastDesktop = launchProcessOnDesktop(proc, lastDesktopIndex);
+            lastDesktop.Switch();
 
-          string procArgs = getProcessArguments(fullCommandline, o.processName);
+          })
+          .WithParsed<RunOnOptions>(o => {
+            // vdesk run-on [o.desktopIndex] [o.processName] [<procArgs>]
+            Debug.Print(getProcessArguments(Environment.CommandLine, o.processName));
+            Process proc = Process.Start(o.processName, getProcessArguments(Environment.CommandLine, o.processName));
+            launchProcessOnDesktop(proc, o.desktopIndex);
 
-          Process proc = Process.Start(o.processName, procArgs);
-          launchProcessOnDesktop(proc, VirtualDesktop.GetDesktops().Length + 1);
+          })
+          .WithParsed<RunOnSwitchOptions>(o => {
+            // vdesk run-on-switch [o.desktopIndex] [o.processName] [<procArgs>]
 
-        })
-        .WithParsed<RunSwitchOptions>(o => {
+            Process proc = Process.Start(o.processName, getProcessArguments(Environment.CommandLine, o.processName));
+            VirtualDesktop lastDesktop = launchProcessOnDesktop(proc, o.desktopIndex);
 
-          string procArgs = getProcessArguments(fullCommandline, o.processName);
-
-          Process proc = Process.Start(o.processName, procArgs);
-          int lastDesktopIndex = VirtualDesktop.GetDesktops().Length + 1;
-
-          VirtualDesktop lastDesktop = launchProcessOnDesktop(proc, lastDesktopIndex);
-          lastDesktop.Switch();
-
-        })
-        .WithParsed<RunOnOptions>(o => {
-
-          string procArgs = getProcessArguments(fullCommandline, o.processName);
-
-          Process proc = Process.Start(o.processName, procArgs);
-          launchProcessOnDesktop(proc, o.desktopIndex);
-
-        })
-        .WithParsed<RunOnSwitchOptions>(o => {
-
-          int offset = fullCommandline.IndexOf(o.processName);
-          string procArgs = string.Concat(fullCommandline.Skip(offset + o.processName.Length).SkipWhile(c => c.Equals('"')).SkipWhile(c => c.Equals(' ')));
-
-          Process proc = Process.Start(o.processName, procArgs);
-          VirtualDesktop lastDesktop = launchProcessOnDesktop(proc, o.desktopIndex);
-
-          lastDesktop.Switch();
-        });
+            lastDesktop.Switch();
+          });
 
       } catch (Win32Exception) {
         Console.Error.WriteLine("Error: Unable to launch program.");
-        return;
+      } finally {
+        Application.Current.Shutdown();
       }
-
-      Application.Current.Shutdown();
       return;
     }
 
@@ -95,6 +87,8 @@ namespace vdesk {
     private VirtualDesktop launchProcessOnDesktop(Process proc, int n) {
       createMaxDesktops(n);
       while (proc.MainWindowHandle.ToInt64() == 0) {
+        // spawning the process can be slow, wait for a few ms until the process has created a main window.
+        // TODO: exit this while loop and do not call .MoveToDesktop if the process doesn't yeild a main window handle in a reasonable timeframe.
         Thread.Sleep(0);
       }
       VirtualDesktopHelper.MoveToDesktop(proc.MainWindowHandle, getDesktopFromIndex(n));
@@ -106,8 +100,26 @@ namespace vdesk {
     }
 
     private string getProcessArguments(string fullCommandline, string procName) {
-      int offset = fullCommandline.IndexOf(procName);
-      return string.Concat(fullCommandline.Skip(offset + procName.Length).SkipWhile(c => c.Equals('"')).SkipWhile(c => c.Equals(' ')));
+      /* Explanation:
+       * offset is the index of the end of the process name within the full commandline argument
+       * 
+       * example: offset = 42
+       *                                           v
+       * "/somepath/vdesk.exe" "some executable.exe" -some args "some more args" 
+       * 
+       * We skip the offset, producing:
+       * 
+       * " -some args "some more args" 
+       * 
+       * Then if the next char is '"' we skip that,
+       * and if the next character is ' ' (it should be) we skip that too. 
+       * Leaving what should be the intact args to pass to the process:
+       * 
+       * -some args "some more args" 
+       * 
+       */
+      int offset = fullCommandline.IndexOf(procName) + procName.Length;
+      return string.Concat(fullCommandline.Skip(offset).SkipWhile(c => c.Equals('"')).SkipWhile(c => c.Equals(' ')));
     }
 
   }
