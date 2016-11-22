@@ -46,27 +46,24 @@ namespace vdesk {
           })
           .WithParsed<RunSwitchOptions>(o => {
             // vdesk run-switch [o.processName] [<procArgs>]
-            Process proc = Process.Start(o.processName, getProcessArguments(Environment.CommandLine, o.processName));
-
             int lastDesktopIndex = VirtualDesktop.GetDesktops().Length + 1;
-            VirtualDesktop lastDesktop = launchProcessOnDesktop(proc, lastDesktopIndex);
-            lastDesktop.Switch();
+            createMaxDesktops(lastDesktopIndex).Switch();
+
+            Process proc = Process.Start(o.processName, getProcessArguments(Environment.CommandLine, o.processName));
 
           })
           .WithParsed<RunOnOptions>(o => {
             // vdesk run-on [o.desktopIndex] [o.processName] [<procArgs>]
-            Debug.Print(getProcessArguments(Environment.CommandLine, o.processName));
+            
             Process proc = Process.Start(o.processName, getProcessArguments(Environment.CommandLine, o.processName));
             launchProcessOnDesktop(proc, o.desktopIndex);
 
           })
           .WithParsed<RunOnSwitchOptions>(o => {
             // vdesk run-on-switch [o.desktopIndex] [o.processName] [<procArgs>]
-
+            createMaxDesktops(o.desktopIndex).Switch();
             Process proc = Process.Start(o.processName, getProcessArguments(Environment.CommandLine, o.processName));
-            VirtualDesktop lastDesktop = launchProcessOnDesktop(proc, o.desktopIndex);
 
-            lastDesktop.Switch();
           });
 
       } catch (Win32Exception) {
@@ -77,19 +74,23 @@ namespace vdesk {
       return;
     }
 
-    private void createMaxDesktops(int n) {
+    private VirtualDesktop createMaxDesktops(int n) {
       VirtualDesktop[] desktops = VirtualDesktop.GetDesktops();
       for (int i = desktops.Length; i < n; i++) {
         VirtualDesktop.Create();
       }
+      return VirtualDesktop.GetDesktops().Last();
     }
 
     private VirtualDesktop launchProcessOnDesktop(Process proc, int n) {
       createMaxDesktops(n);
+      int backoff = 1;
       while (proc.MainWindowHandle.ToInt64() == 0) {
         // spawning the process can be slow, wait for a few ms until the process has created a main window.
         // TODO: exit this while loop and do not call .MoveToDesktop if the process doesn't yeild a main window handle in a reasonable timeframe.
-        Thread.Sleep(0);
+        
+        Thread.Sleep(backoff);
+        if ((backoff <<= 1) > 0x1000) return getDesktopFromIndex(n);
       }
       VirtualDesktopHelper.MoveToDesktop(proc.MainWindowHandle, getDesktopFromIndex(n));
       return getDesktopFromIndex(n);
