@@ -49,6 +49,10 @@ To launch a new VirtualBox vm fullscreen on its own virtual desktop, and switch 
 
 `vdesk run-switch "C:\Path to Vbox\VirtualBox.exe" --comment "VM" --startvm "vm-id-no" --fullscreen`
 
+To open Github in a new Chrome window on a new virtual desktop:
+
+`vdesk run-switch "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" /new-window "https://github.com"`
+
 ## Copyright notice
 
 Copyright (C) 2016
