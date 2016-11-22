@@ -20,6 +20,8 @@ Run a program on a new desktop:
 
 `vdesk run [command] [args]`
 
+> It is common for applications that have a background process (like Chrome / Skype) to not launch on the correct desktop when using a `run` or `run-on` command. Try using a `*-switch` command, and check the program's command line options for ways to create a new window - For example Chrome has the /new-window option, which allows it to work with `*-switch` commands.
+
 Run a program on a new desktop, and switch to it:
 
 `vdesk run-switch [command] [<args>]`
