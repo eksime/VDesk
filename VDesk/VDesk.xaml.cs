@@ -79,7 +79,7 @@ namespace vdesk {
       for (int i = desktops.Length; i < n; i++) {
         VirtualDesktop.Create();
       }
-      return VirtualDesktop.GetDesktops().Last();
+      return VirtualDesktop.GetDesktops()[n-1];
     }
 
     private VirtualDesktop launchProcessOnDesktop(Process proc, int n) {
