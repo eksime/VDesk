@@ -39,7 +39,7 @@ Run a program on desktop n, and prevent switching to it:
 
 To launch notepad on a new desktop:
 
-`vdesk run notepad`
+`vdesk run:notepad`
 
 To launch notepad on desktop 3 and open `C:\some file.txt`:
 
@@ -47,15 +47,15 @@ To launch notepad on desktop 3 and open `C:\some file.txt`:
 
 To launch a new VirtualBox vm fullscreen on its own virtual desktop, and switch to it:
 
-`vdesk run-switch "C:\Path to Vbox\VirtualBox.exe" --comment "VM" --startvm "vm-id-no" --fullscreen`
+`vdesk run:"C:\Path to Vbox\VirtualBox.exe" --comment "VM" --startvm "vm-id-no" --fullscreen`
 
 To open Github in a new Chrome window on a new virtual desktop:
 
-`vdesk run-switch "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" /new-window "https://github.com"`
+`vdesk run:"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" /new-window "https://github.com"`
 
 ## Copyright notice
 
-Copyright (C) 2016
+Copyright (C) 2017
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
