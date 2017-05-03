@@ -14,6 +14,9 @@ namespace VDesk {
         private void ApplicationStart(object sender, StartupEventArgs e) {
             try {
 
+                if (!VirtualDesktop.IsSupported)
+                    throw new NotSupportedException("Virtual Desktops are not supported on this system.");
+
                 string[] clArgs = Environment.GetCommandLineArgs();
                 string commandline = string.Concat(Environment.CommandLine.Skip(clArgs[0].Length + 3));
 
