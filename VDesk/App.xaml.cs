@@ -18,7 +18,10 @@ namespace VDesk {
                     throw new NotSupportedException("Virtual Desktops are not supported on this system.");
 
                 string[] clArgs = Environment.GetCommandLineArgs();
-                string commandline = string.Concat(Environment.CommandLine.Skip(clArgs[0].Length + 3));
+
+                int exeNameLength = Regex.Match(Environment.CommandLine, "^(?:\".+?\"|\\S+)").Value.Length;
+                string commandline = string.Concat(Environment.CommandLine.Skip(exeNameLength + 1));
+                MessageBox.Show(commandline);
 
                 Dictionary<string, string> args = new Dictionary<string, string> {
                     ["noswitch"] = "false"

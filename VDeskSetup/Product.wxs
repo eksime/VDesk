@@ -24,7 +24,7 @@
   <Fragment>
     <ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER" >
       <Component Id="MainExecutable" Guid="*">
-        <File Id='exe' Name='VDesk.exe' Source='..\VDesk\bin\Release\VDesk-static.exe' KeyPath='yes'/>
+        <File Id='exe' Name='VDesk.exe' Source='..\VDesk\bin\x64\Release\VDesk-static.exe' KeyPath='yes'/>
         <Environment Id="PATH" Name="PATH" Value="[INSTALLFOLDER]" Permanent="no" Part="last" Action="set" System="yes" />
       </Component>
     </ComponentGroup>
