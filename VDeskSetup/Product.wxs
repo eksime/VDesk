@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Product Id="4b9d3f05-3f9d-4627-a463-91c7317aaed5" Name="VDesk" Language="1033" Version="1.0.1.0" Manufacturer="Elliot Sime" UpgradeCode="55bcb7af-e64d-4e3e-bd06-f6c1b273c4ba">
+    
+    <Package Id='*' Description="VDesk 1.0.1 Installer" InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+
+    <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+    <MediaTemplate EmbedCab="yes" />
+
+    <Feature Id="ProductFeature" Title="VDeskSetup" Level="1">
+      <ComponentGroupRef Id="ProductComponents" />
+    </Feature>
+    
+  </Product>
+
+  <Fragment>
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="INSTALLFOLDER" Name="VDesk" />
+      </Directory>
+    </Directory>
+  </Fragment>
+
+  <Fragment>
+    <ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER" >
+      <Component Id="MainExecutable" Guid="*">
+        <File Id='exe' Name='VDesk.exe' Source='..\VDesk\bin\Release\VDesk-static.exe' KeyPath='yes'/>
+        <Environment Id="PATH" Name="PATH" Value="[INSTALLFOLDER]" Permanent="no" Part="last" Action="set" System="yes" />
+      </Component>
+    </ComponentGroup>
+  </Fragment>
+
+</Wix>
