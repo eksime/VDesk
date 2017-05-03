@@ -1,0 +1,3 @@
+[submodule "VDesk/VirtualDesktop"]
+	path = VDesk/VirtualDesktop
+	url = https://github.com/Grabacr07/VirtualDesktop
