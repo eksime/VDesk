@@ -21,7 +21,6 @@ namespace VDesk {
 
                 int exeNameLength = Regex.Match(Environment.CommandLine, "^(?:\".+?\"|\\S+)").Value.Length;
                 string commandline = string.Concat(Environment.CommandLine.Skip(exeNameLength + 1));
-                MessageBox.Show(commandline);
 
                 Dictionary<string, string> args = new Dictionary<string, string> {
                     ["noswitch"] = "false"
