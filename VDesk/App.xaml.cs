@@ -31,7 +31,17 @@ namespace VDesk {
                     args[kv[0]] = kv.Length > 1 ? string.Concat(string.Concat(kv.Skip(1)).Split()[0]) : "";
                 }
 
-                if (commandline.Contains("create")) {
+                if (int.TryParse(commandline, out int switchIndex)) {
+                    //commandline is just an integer, switch to that desktop.
+                    //launch on desktop i
+                    VirtualDesktop[] desktops = VirtualDesktop.GetDesktops();
+
+                    while (switchIndex > VirtualDesktop.GetDesktops().Length)
+                        VirtualDesktop.Create();
+
+                    VirtualDesktop.GetDesktops()[Math.Max(0, --switchIndex)]?.Switch();
+
+                } else if (commandline.Contains("create")) {
                     //just create desktops.
                     if (args.ContainsKey("create") && int.TryParse(args["create"], out int n)) {
                         while (n > VirtualDesktop.GetDesktops().Length)
@@ -44,11 +54,11 @@ namespace VDesk {
                     //launch program:
                     int startIndex = commandline.IndexOf("run:") + 4;
                     string appString = commandline.Substring(startIndex);
-                    
+
                     string appPath = Regex.Match(appString, "^(?:\".+?\"|\\S+)").Value;
                     string appArgs = appString.Length >= appPath.Length + 1 ? appString.Substring(appPath.Length + 1) : "";
                     appPath = appPath.Trim('"');
-                    
+
                     VirtualDesktop targetDesktop;
 
                     if (args.ContainsKey("on") && int.TryParse(args["on"], out int i)) {
@@ -89,7 +99,7 @@ vdesk [on:<n>] [noswitch:{true|false}] <run:command> [args]
                 }
             } catch (FileNotFoundException ex) {
                 MessageBox.Show($"{ex.Message}:{Environment.NewLine}'{ex.FileName}'", "VDesk", MessageBoxButton.OK, MessageBoxImage.Hand);
-                
+
             } catch (Exception ex) {
                 MessageBox.Show(ex.Message, "VDesk");
 

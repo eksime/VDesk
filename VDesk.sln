@@ -1,19 +1,16 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26403.7
+VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VDesk", "VDesk\VDesk.csproj", "{7B6874C1-48E1-4C04-8132-888495CA8EF5}"
 	ProjectSection(ProjectDependencies) = postProject
 		{AB848ECD-76AA-41C0-B63D-86A8591B25AA} = {AB848ECD-76AA-41C0-B63D-86A8591B25AA}
 	EndProjectSection
 EndProject
-Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "VDeskSetup", "VDeskSetup\VDeskSetup.wixproj", "{9CDEF1D3-5D5F-491B-88A9-97AAD15CAB05}"
-	ProjectSection(ProjectDependencies) = postProject
-		{7B6874C1-48E1-4C04-8132-888495CA8EF5} = {7B6874C1-48E1-4C04-8132-888495CA8EF5}
-	EndProjectSection
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VirtualDesktop", "VirtualDesktop\source\VirtualDesktop\VirtualDesktop.csproj", "{AB848ECD-76AA-41C0-B63D-86A8591B25AA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VirtualDesktop", "..\VirtualDesktop\source\VirtualDesktop\VirtualDesktop.csproj", "{AB848ECD-76AA-41C0-B63D-86A8591B25AA}"
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "VDeskSetup", "VDeskSetup\VDeskSetup.vdproj", "{02FEF30B-30D5-46DA-8C41-0FA75D6067FF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,16 +34,6 @@ Global
 		{7B6874C1-48E1-4C04-8132-888495CA8EF5}.Release|x64.Build.0 = Release|x64
 		{7B6874C1-48E1-4C04-8132-888495CA8EF5}.Release|x86.ActiveCfg = Release|Any CPU
 		{7B6874C1-48E1-4C04-8132-888495CA8EF5}.Release|x86.Build.0 = Release|Any CPU
-		{9CDEF1D3-5D5F-491B-88A9-97AAD15CAB05}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{9CDEF1D3-5D5F-491B-88A9-97AAD15CAB05}.Debug|Any CPU.Build.0 = Debug|x86
-		{9CDEF1D3-5D5F-491B-88A9-97AAD15CAB05}.Debug|x64.ActiveCfg = Debug|x86
-		{9CDEF1D3-5D5F-491B-88A9-97AAD15CAB05}.Debug|x86.ActiveCfg = Debug|x86
-		{9CDEF1D3-5D5F-491B-88A9-97AAD15CAB05}.Debug|x86.Build.0 = Debug|x86
-		{9CDEF1D3-5D5F-491B-88A9-97AAD15CAB05}.Release|Any CPU.ActiveCfg = Release|x86
-		{9CDEF1D3-5D5F-491B-88A9-97AAD15CAB05}.Release|Any CPU.Build.0 = Release|x86
-		{9CDEF1D3-5D5F-491B-88A9-97AAD15CAB05}.Release|x64.ActiveCfg = Release|x86
-		{9CDEF1D3-5D5F-491B-88A9-97AAD15CAB05}.Release|x86.ActiveCfg = Release|x86
-		{9CDEF1D3-5D5F-491B-88A9-97AAD15CAB05}.Release|x86.Build.0 = Release|x86
 		{AB848ECD-76AA-41C0-B63D-86A8591B25AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{AB848ECD-76AA-41C0-B63D-86A8591B25AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AB848ECD-76AA-41C0-B63D-86A8591B25AA}.Debug|x64.ActiveCfg = Debug|x64
@@ -59,8 +46,17 @@ Global
 		{AB848ECD-76AA-41C0-B63D-86A8591B25AA}.Release|x64.Build.0 = Release|x64
 		{AB848ECD-76AA-41C0-B63D-86A8591B25AA}.Release|x86.ActiveCfg = Release|x86
 		{AB848ECD-76AA-41C0-B63D-86A8591B25AA}.Release|x86.Build.0 = Release|x86
+		{02FEF30B-30D5-46DA-8C41-0FA75D6067FF}.Debug|Any CPU.ActiveCfg = Debug
+		{02FEF30B-30D5-46DA-8C41-0FA75D6067FF}.Debug|x64.ActiveCfg = Debug
+		{02FEF30B-30D5-46DA-8C41-0FA75D6067FF}.Debug|x86.ActiveCfg = Debug
+		{02FEF30B-30D5-46DA-8C41-0FA75D6067FF}.Release|Any CPU.ActiveCfg = Release
+		{02FEF30B-30D5-46DA-8C41-0FA75D6067FF}.Release|x64.ActiveCfg = Release
+		{02FEF30B-30D5-46DA-8C41-0FA75D6067FF}.Release|x86.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F48EC4C2-3608-48E3-B72A-88268E81AA36}
 	EndGlobalSection
 EndGlobal
