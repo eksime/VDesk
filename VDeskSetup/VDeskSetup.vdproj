@@ -21,7 +21,7 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_9B923EA6E16199D6DCDB14FA72F430DC"
+        "MsmKey" = "8:_768545217EA6AFF13BA9D7384B845F3A"
         "OwnerKey" = "8:_61C63DC29EE443F0B101A77A6EF3DC8F"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -34,7 +34,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_9B923EA6E16199D6DCDB14FA72F430DC"
+        "OwnerKey" = "8:_768545217EA6AFF13BA9D7384B845F3A"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -55,6 +55,22 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.6.1"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.6.1 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.6.1"
+                    }
+                }
+            }
         }
         "Release"
         {
@@ -71,12 +87,70 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.6.1"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.6.1 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.6.1"
+                    }
+                }
+            }
         }
     }
     "Deployable"
     {
         "CustomAction"
         {
+            "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_81B3185E3FD240CD85905A102FB2C523"
+            {
+            "Name" = "8:Primary output from VDesk (Active)"
+            "Condition" = "8:"
+            "Object" = "8:_61C63DC29EE443F0B101A77A6EF3DC8F"
+            "FileType" = "3:2"
+            "InstallAction" = "3:4"
+            "Arguments" = "8:"
+            "EntryPoint" = "8:"
+            "Sequence" = "3:1"
+            "Identifier" = "8:_747052EF_B938_494D_98AC_7AB779D35008"
+            "InstallerClass" = "11:TRUE"
+            "CustomActionData" = "8:/TARGETDIR=\"[TARGETDIR]\\\""
+            }
+            "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_C05ADEF0F51B4F678508BD9F9AD3899B"
+            {
+            "Name" = "8:Primary output from VDesk (Active)"
+            "Condition" = "8:"
+            "Object" = "8:_61C63DC29EE443F0B101A77A6EF3DC8F"
+            "FileType" = "3:2"
+            "InstallAction" = "3:1"
+            "Arguments" = "8:"
+            "EntryPoint" = "8:"
+            "Sequence" = "3:1"
+            "Identifier" = "8:_397AFEFE_83AA_4BC7_A587_2056A3C86296"
+            "InstallerClass" = "11:TRUE"
+            "CustomActionData" = "8:/TARGETDIR=\"[TARGETDIR]\\\""
+            }
+            "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_EB5D920660D949E0A8458CA666AD54F4"
+            {
+            "Name" = "8:Primary output from VDesk (Active)"
+            "Condition" = "8:"
+            "Object" = "8:_61C63DC29EE443F0B101A77A6EF3DC8F"
+            "FileType" = "3:2"
+            "InstallAction" = "3:3"
+            "Arguments" = "8:"
+            "EntryPoint" = "8:"
+            "Sequence" = "3:1"
+            "Identifier" = "8:_85D7B9AD_F0F8_4668_9E07_BB1CD7CE3B5C"
+            "InstallerClass" = "11:TRUE"
+            "CustomActionData" = "8:/TARGETDIR=\"[TARGETDIR]\\\""
+            }
         }
         "DefaultFeature"
         {
@@ -100,14 +174,14 @@
         }
         "File"
         {
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_9B923EA6E16199D6DCDB14FA72F430DC"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_768545217EA6AFF13BA9D7384B845F3A"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:VirtualDesktop, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:VirtualDesktop, Version=2.0.0.0, Culture=neutral, processorArchitecture=x86"
                 "ScatterAssemblies"
                 {
-                    "_9B923EA6E16199D6DCDB14FA72F430DC"
+                    "_768545217EA6AFF13BA9D7384B845F3A"
                     {
                     "Name" = "8:VirtualDesktop.dll"
                     "Attributes" = "3:512"
@@ -165,19 +239,19 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:VDesk"
-        "ProductCode" = "8:{6D219652-D869-4DFA-859D-17B5DEB120BC}"
-        "PackageCode" = "8:{CEBDC285-67C1-4707-8D56-A7EEC28CA9D7}"
+        "ProductCode" = "8:{CF6178F9-74BB-4219-A51A-792704443594}"
+        "PackageCode" = "8:{403C6ABC-F2EE-44B8-8B22-E18FC554AABE}"
         "UpgradeCode" = "8:{4D9EBDC4-C680-4253-B050-E1D4CC2AF3B7}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
-        "RemovePreviousVersions" = "11:FALSE"
+        "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
-        "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.0.0"
+        "InstallAllUsers" = "11:TRUE"
+        "ProductVersion" = "8:1.1.1"
         "Manufacturer" = "8:Elliot Sime"
         "ARPHELPTELEPHONE" = "8:"
-        "ARPHELPLINK" = "8:"
-        "Title" = "8:VDeskSetup"
+        "ARPHELPLINK" = "8:https://github.com/eksime/VDesk/issues"
+        "Title" = "8:VDesk Setup"
         "Subject" = "8:"
         "ARPCONTACT" = "8:Elliot Sime"
         "Keywords" = "8:"
@@ -373,7 +447,7 @@
                             "ContextData" = "8:1;True=1;False=0"
                             "Attributes" = "3:0"
                             "Setting" = "3:0"
-                            "Value" = "3:1"
+                            "Value" = "3:0"
                             "DefaultValue" = "3:1"
                             "UsePlugInResources" = "11:TRUE"
                             }
@@ -687,7 +761,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_61C63DC29EE443F0B101A77A6EF3DC8F"
             {
-            "SourcePath" = "8:..\\VDesk\\obj\\Debug\\VDesk.exe"
+            "SourcePath" = "8:..\\VDesk\\obj\\x86\\Debug\\VDesk.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_AE4638A6FCFE46DB9463F41B12A1B971"
