@@ -77,7 +77,18 @@ namespace VDesk {
                     if (bool.TryParse(args["noswitch"], out bool noswitch) && !noswitch)
                         targetDesktop.Switch();
 
-                    Process proc = Process.Start(appPath, appArgs);
+
+                    ProcessStartInfo startInfo = new ProcessStartInfo(appPath, appArgs);
+
+                    try {
+                        if (Directory.Exists(Path.GetDirectoryName(appPath)))
+                            startInfo.WorkingDirectory = Path.GetDirectoryName(appPath);
+
+                    } catch {
+                        //Don't really want to do anything here.
+                    }
+
+                    Process proc = Process.Start(startInfo);
 
                     if (noswitch) {
                         for (int backoff = 1; proc.MainWindowHandle.ToInt64() == 0 && backoff <= 0x1000; backoff <<= 1)
