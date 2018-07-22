@@ -55,7 +55,7 @@ To open Github in a new Chrome window on a new virtual desktop:
 
 ## Copyright notice
 
-Copyright (C) 2017
+Copyright (C) 2018
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

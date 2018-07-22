@@ -6,17 +6,20 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using WindowsDesktop;
 
 namespace VDesk {
     partial class App {
-        private void ApplicationStart(object sender, StartupEventArgs e) {
+        private async void ApplicationStart(object sender, StartupEventArgs e) {
             try {
 
                 if (!VirtualDesktop.IsSupported)
                     throw new NotSupportedException("Virtual Desktops are not supported on this system.");
-
+                
+                await VirtualDesktopProvider.Default.Initialize();
+                
                 string[] clArgs = Environment.GetCommandLineArgs();
 
                 int exeNameLength = Regex.Match(Environment.CommandLine, "^(?:\".+?\"|\\S+)").Value.Length;
@@ -60,7 +63,6 @@ namespace VDesk {
                     appPath = appPath.Trim('"');
 
                     VirtualDesktop targetDesktop;
-
                     if (args.ContainsKey("on") && int.TryParse(args["on"], out int i)) {
                         //launch on desktop i
                         VirtualDesktop[] desktops = VirtualDesktop.GetDesktops();

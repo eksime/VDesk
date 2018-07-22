@@ -21,7 +21,7 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_768545217EA6AFF13BA9D7384B845F3A"
+        "MsmKey" = "8:_9B923EA6E16199D6DCDB14FA72F430DC"
         "OwnerKey" = "8:_61C63DC29EE443F0B101A77A6EF3DC8F"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -34,7 +34,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_768545217EA6AFF13BA9D7384B845F3A"
+        "OwnerKey" = "8:_9B923EA6E16199D6DCDB14FA72F430DC"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -166,7 +166,7 @@
                 {
                 "Name" = "8:.NET Framework"
                 "Message" = "8:[VSDNETMSG]"
-                "FrameworkVersion" = "8:.NETFramework,Version=v4.6.1"
+                "FrameworkVersion" = "8:.NETFramework,Version=v4.7.1"
                 "AllowLaterVersions" = "11:FALSE"
                 "InstallUrl" = "8:http://go.microsoft.com/fwlink/?LinkId=671728"
                 }
@@ -174,14 +174,14 @@
         }
         "File"
         {
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_768545217EA6AFF13BA9D7384B845F3A"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_9B923EA6E16199D6DCDB14FA72F430DC"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:VirtualDesktop, Version=2.0.0.0, Culture=neutral, processorArchitecture=x86"
+            "AssemblyAsmDisplayName" = "8:VirtualDesktop, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_768545217EA6AFF13BA9D7384B845F3A"
+                    "_9B923EA6E16199D6DCDB14FA72F430DC"
                     {
                     "Name" = "8:VirtualDesktop.dll"
                     "Attributes" = "3:512"
@@ -239,15 +239,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:VDesk"
-        "ProductCode" = "8:{CF6178F9-74BB-4219-A51A-792704443594}"
-        "PackageCode" = "8:{403C6ABC-F2EE-44B8-8B22-E18FC554AABE}"
+        "ProductCode" = "8:{34B64A71-5D8F-4007-95C7-99E48BB8E4CB}"
+        "PackageCode" = "8:{D10AD428-C3DB-4361-B5B4-E9D20423464C}"
         "UpgradeCode" = "8:{4D9EBDC4-C680-4253-B050-E1D4CC2AF3B7}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:1.1.1"
+        "ProductVersion" = "8:1.2.0"
         "Manufacturer" = "8:Elliot Sime"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:https://github.com/eksime/VDesk/issues"
@@ -761,7 +761,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_61C63DC29EE443F0B101A77A6EF3DC8F"
             {
-            "SourcePath" = "8:..\\VDesk\\obj\\x86\\Debug\\VDesk.exe"
+            "SourcePath" = "8:..\\VDesk\\obj\\Debug\\VDesk.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_AE4638A6FCFE46DB9463F41B12A1B971"
