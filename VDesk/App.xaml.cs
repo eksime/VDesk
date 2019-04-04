@@ -26,7 +26,8 @@ namespace VDesk {
                 string commandline = string.Concat(Environment.CommandLine.Skip(exeNameLength + 1));
 
                 Dictionary<string, string> args = new Dictionary<string, string> {
-                    ["noswitch"] = "false"
+                    ["noswitch"] = "false",
+                    ["autoremove"] = "false"
                 };
 
                 foreach (string arg in clArgs) {
@@ -100,13 +101,18 @@ namespace VDesk {
                             VirtualDesktopHelper.MoveToDesktop(proc.MainWindowHandle, targetDesktop);
                     }
 
+                    if (bool.TryParse(args["autoremove"], out var autoremove) && autoremove) {
+                        proc.WaitForExit();
+                        targetDesktop.Remove();
+                    }
+
 
                 } else {
                     //wip: gui mode
                     MessageBox.Show(
                         @"Usage:
 vdesk create[:n]
-vdesk [on:<n>] [noswitch:{true|false}] <run:command> [args]
+vdesk [on:<n>] [noswitch:{true|false}] [autoremove:{true|false}] <run:command> [args]
 ",
                         "VDesk Usage");
                 }
