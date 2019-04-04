@@ -10,7 +10,7 @@ See the [releases page](https://github.com/eksime/VDesk/releases/).
 
 `vdesk create[:n]`
 
-`vdesk [on:<`*`n`*`>] [noswitch:{`*`true`*`|`*`false`*`}] <run:`*`command`*`> [`*`args`*`]`
+`vdesk [on:<`*`n`*`>] [noswitch:{`*`true`*`|`*`false`*`}] [autoremove:{`*`true`*`|`*`false`*`}] <run:`*`command`*`> [`*`args`*`]`
 
 #### Examples:
 Create total of n desktops:
@@ -23,11 +23,15 @@ Run a program on a new desktop:
 
 > **Note:** If VDesk doesn't work at first, check the program's command line options for ways to create a new window - For example Chrome has the `/new-window` argument which allows it to function with VDesk.
 
-Run a program on a new desktop, and prevnt swapping to the new desktop:
+Run a program on a new desktop, and prevent swapping to the new desktop:
 
 `vdesk noswitch:true run:command [args]`
 
 > **Note:** The `noswitch:true` parameter is known to cause applications like Chrome / Skype to not launch on the correct desktop.
+
+Run a program on a new desktop, and close the created desktop when the program exits:
+
+`vdesk autoremove:true run:command [args]`
 
 Run a program on desktop n:
 

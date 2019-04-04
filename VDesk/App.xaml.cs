@@ -26,7 +26,8 @@ namespace VDesk {
                 string commandline = string.Concat(Environment.CommandLine.Skip(exeNameLength + 1));
 
                 Dictionary<string, string> args = new Dictionary<string, string> {
-                    ["noswitch"] = "false"
+                    ["noswitch"] = "false",
+                    ["autoremove"] = "false"
                 };
 
                 foreach (string arg in clArgs) {
@@ -98,6 +99,11 @@ namespace VDesk {
 
                         if (proc.MainWindowHandle.ToInt64() != 0)
                             VirtualDesktopHelper.MoveToDesktop(proc.MainWindowHandle, targetDesktop);
+                    }
+
+                    if (bool.TryParse(args["autoremove"], out var autoremove) && autoremove) {
+                        proc.WaitForExit();
+                        targetDesktop.Remove();
                     }
 
 
