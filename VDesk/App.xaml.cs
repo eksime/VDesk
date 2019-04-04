@@ -112,7 +112,7 @@ namespace VDesk {
                     MessageBox.Show(
                         @"Usage:
 vdesk create[:n]
-vdesk [on:<n>] [noswitch:{true|false}] <run:command> [args]
+vdesk [on:<n>] [noswitch:{true|false}] [autoremove:{true|false}] <run:command> [args]
 ",
                         "VDesk Usage");
                 }
