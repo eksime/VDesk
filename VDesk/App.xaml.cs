@@ -81,6 +81,7 @@ namespace VDesk {
 
 
                     ProcessStartInfo startInfo = new ProcessStartInfo(appPath, appArgs);
+                    startInfo.WindowStyle = ProcessWindowStyle.Hidden;
 
                     try {
                         if (Directory.Exists(Path.GetDirectoryName(appPath)))
