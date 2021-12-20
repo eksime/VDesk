@@ -45,19 +45,19 @@ To launch notepad on desktop 3 and open `C:\some file.txt`:
 
 `vdesk on:3 run:notepad "C:\some file.txt"`
 
-Move already open program to another desktop
+Move an already open program to another desktop:
 
-`vdesk on:2 move:notepad 
+`vdesk on:2 move:notepad` 
 
 NOTE: noswitch is by deafult false!
 
-Move a program without switching
+Move a program without switching:
 
-`vdesk on:2 noswitch:true move:notepad 
+`vdesk on:2 noswitch:true move:notepad`
 
-Switching the current virtual desktop
+Switching the current virtual desktop:
 
-`vdesk on:2 switch
+`vdesk on:2 switch`
 
 To launch a new VirtualBox vm fullscreen on its own virtual desktop, and switch to it:
 
