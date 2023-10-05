@@ -242,3 +242,6 @@ _Pvt_Extensions
 !.vscode/launch.json
 !.vscode/extensions.json
 .history
+
+# Rider
+.idea/*
