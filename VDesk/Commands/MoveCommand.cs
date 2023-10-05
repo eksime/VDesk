@@ -2,13 +2,22 @@
 using System.Diagnostics;
 using System.Windows;
 using McMaster.Extensions.CommandLineUtils;
-using WindowsDesktop;
+using VDesk.Services;
 
 namespace VDesk.Commands
 {
     [Command(Description = "Move application already open to a specific desktop")]
     public class MoveCommand : VdeskCommandBase
     {
+        private readonly IVirtualDesktopService _virtualDesktopService;
+        private readonly IWindowService _windowService;
+        
+        public MoveCommand(IVirtualDesktopService virtualDesktopService, IWindowService windowService)
+        {
+            _virtualDesktopService = virtualDesktopService;
+            _windowService = windowService;
+        }
+        
         [Option("-o|--on", CommandOptionType.SingleValue, Description = "Desktop on witch the command is run")]
         [Range(0, 10)]
         public int DesktopNumber { get; set; }
@@ -34,18 +43,18 @@ namespace VDesk.Commands
             }
             IntPtr hWnd = process.MainWindowHandle;
                 
-            var targetDesktop = VirtualDesktopHelper.CreateAndSelect(DesktopNumber);
+            var targetDesktop = _virtualDesktopService.CreateAndSelect(DesktopNumber);
 
-            VirtualDesktop.MoveToDesktop(hWnd, targetDesktop);
+            _virtualDesktopService.MoveToDesktop(hWnd, targetDesktop);
 
             if(!string.IsNullOrEmpty(HalfSplit))
                 switch (HalfSplit)
                 {
                     case "left":
-                        WindowManager.MoveWindow(hWnd, 0, 0, (int) SystemParameters.PrimaryScreenWidth / 2, (int) SystemParameters.PrimaryScreenHeight, true);
+                        _windowService.MoveWindow(hWnd, 0, 0, (int) SystemParameters.PrimaryScreenWidth / 2, (int) SystemParameters.PrimaryScreenHeight, true);
                         break;
                     case "right":
-                        WindowManager.MoveWindow(hWnd, (int) (SystemParameters.PrimaryScreenWidth / 2 ) + 1, 0, (int) SystemParameters.PrimaryScreenWidth / 2, (int) SystemParameters.PrimaryScreenHeight, true);
+                        _windowService.MoveWindow(hWnd, (int) (SystemParameters.PrimaryScreenWidth / 2 ) + 1, 0, (int) SystemParameters.PrimaryScreenWidth / 2, (int) SystemParameters.PrimaryScreenHeight, true);
                         break;
                 }
 

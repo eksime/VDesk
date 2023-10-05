@@ -1,13 +1,20 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using McMaster.Extensions.CommandLineUtils;
-using WindowsDesktop;
+using VDesk.Services;
 
 namespace VDesk.Commands
 {
     [Command(Description = "Run a command")]
     internal class RunCommand : VdeskCommandBase
     {
+        private readonly IVirtualDesktopService _virtualDesktopService;
+        
+        public RunCommand(IVirtualDesktopService virtualDesktopService)
+        {
+            _virtualDesktopService = virtualDesktopService;
+        }
+        
         [Option("-o|--on", CommandOptionType.SingleValue, Description = "Desktop on witch the command is run")]
         [Range(0, 10)]
         public int DesktopNumber { get; set; }
@@ -24,7 +31,7 @@ namespace VDesk.Commands
 
         public override int OnExecute(CommandLineApplication app)
         {
-            var targetDesktop = VirtualDesktopHelper.CreateAndSelect(DesktopNumber);
+            var targetDesktop = _virtualDesktopService.CreateAndSelect(DesktopNumber);
 
             if (!NoSwitch.HasValue || !NoSwitch.Value)
                 targetDesktop.Switch();
@@ -50,7 +57,7 @@ namespace VDesk.Commands
                 Thread.Sleep(backoff);
 
             if (proc.MainWindowHandle.ToInt64() != 0)
-                VirtualDesktop.MoveToDesktop(proc.MainWindowHandle, targetDesktop);
+                _virtualDesktopService.MoveToDesktop(proc.MainWindowHandle, targetDesktop);
             return 0;
         }
     }

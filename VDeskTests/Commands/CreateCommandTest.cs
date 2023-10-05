@@ -1,7 +1,7 @@
 ﻿using McMaster.Extensions.CommandLineUtils;
-using Pose;
-using WindowsDesktop;
 using VDesk.Commands;
+using VDesk.Services;
+using VDesk.Wrappers;
 
 namespace VDeskTests.Commands
 {
@@ -11,20 +11,23 @@ namespace VDeskTests.Commands
         public void OnExecute_TwoTime_Ok()
         {
             // Arrange
-            var virtualDesktop = Fixture.CreateMany<VirtualDesktop>();
-            var getDesktopsShim = Shim.Replace(() => VirtualDesktop.GetDesktops()).With(delegate() { return virtualDesktop; }); 
-            
-            // Act
-            PoseContext.Isolate(() =>
+            var moqArray = new List<IVirtualDesktop>();
+            GetMockFor<IVirtualDesktopService>().Setup(s => s.GetDesktops()).Returns(moqArray.ToArray).Callback(() =>
             {
-                var command = new CreateCommand
-                {
-                    Number = 20
+                moqArray.Add(new Mock<IVirtualDesktop>().Object);
+            });
+            var commandLineApp = new CommandLineApplication();
+            var command = new CreateCommand(GetMockFor<IVirtualDesktopService>().Object)
+            {
+                Number = 5
+            };
 
-                };
-                command.OnExecute(new CommandLineApplication());
+            // Act
+            command.OnExecute(commandLineApp);
 
-            }, getDesktopsShim);
+            // Assert
+            GetMockFor<IVirtualDesktopService>().Verify(s => s.Create(), Times.Exactly(5));
+            
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using WindowsDesktop;
 
-namespace VDesk.Commands
+namespace VDesk
 {
     public static class VirtualDesktopHelper
     {
