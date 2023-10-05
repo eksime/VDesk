@@ -3,9 +3,11 @@
     <PropertyGroup>
         <OutputType>Exe</OutputType>
         <TargetFramework>net6.0-windows10.0.19041.0</TargetFramework>
-        <RootNamespace>VDesk_Core</RootNamespace>
+        <RootNamespace>VDesk</RootNamespace>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <AssemblyVersion>2.0.0</AssemblyVersion>
+        <FileVersion>2.0.0</FileVersion>
     </PropertyGroup>
 
     <ItemGroup>

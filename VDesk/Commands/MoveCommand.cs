@@ -1,43 +1,60 @@
-﻿using System.Diagnostics;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Diagnostics;
+using System.Windows;
 using McMaster.Extensions.CommandLineUtils;
 using WindowsDesktop;
 
-namespace VDesk_Core.Commands
+namespace VDesk.Commands
 {
-    public static class MoveCommand
+    [Command(Description = "Move application already open to a specific desktop")]
+    public class MoveCommand : VdeskCommandBase
     {
-        public static string name => "Move";
+        [Option("-o|--on", CommandOptionType.SingleValue, Description = "Desktop on witch the command is run")]
+        [Range(0, 10)]
+        public int DesktopNumber { get; set; }
 
-        public static void GetCommand(CommandLineApplication moveCmd)
+        [Option("-p|--process", CommandOptionType.SingleValue, Description = "Process to move")]
+        [Required]
+        public string ProcessName { get; set; }
+        
+        [Option("-n|--no-switch", Description = "Don't switch to virtual desktop")]
+        public bool? NoSwitch { get; set; }
+        
+        [Option("--half-split")]
+        [AllowedValues("left", "right", IgnoreCase = true)]
+        public string HalfSplit { get; }
+        
+        public override int OnExecute(CommandLineApplication app)
         {
-            moveCmd.Description = "Move application already open to a specific desktop";
-            var desktopNumber = moveCmd.Option<int>("-o|--on", "Desktop on witch the command is run",
-                CommandOptionType.SingleValue);
-            var processName = moveCmd.Option("-p|--process", "Process to move", CommandOptionType.SingleValue)
-                .IsRequired();
-            var noSwitch = moveCmd.Option("-n|--no-switch", "Don't switch to virtual desktop",
-                CommandOptionType.NoValue);
-
-            moveCmd.OnExecute(() =>
+            var process = Process.GetProcessesByName(ProcessName).FirstOrDefault();
+            if (process is null)
             {
-                var process = Process.GetProcessesByName(processName.Value()).FirstOrDefault();
-                if (process is null)
-                {
-                    Console.WriteLine($"Process {processName.Value()} not found");
-                    return;
-                }
-                IntPtr hWnd = process.MainWindowHandle;
+                Console.WriteLine($"Process {ProcessName} not found");
+                return 1;
+            }
+            IntPtr hWnd = process.MainWindowHandle;
                 
-                var targetDesktop = VirtualDesktopHelper.CreateAndSelect(desktopNumber.ParsedValue);
+            var targetDesktop = VirtualDesktopHelper.CreateAndSelect(DesktopNumber);
 
-                VirtualDesktop.MoveToDesktop(hWnd, targetDesktop);
+            VirtualDesktop.MoveToDesktop(hWnd, targetDesktop);
 
-                if (noSwitch.HasValue())
-                    return;
+            if(!string.IsNullOrEmpty(HalfSplit))
+                switch (HalfSplit)
+                {
+                    case "left":
+                        WindowManager.MoveWindow(hWnd, 0, 0, (int) SystemParameters.PrimaryScreenWidth / 2, (int) SystemParameters.PrimaryScreenHeight, true);
+                        break;
+                    case "right":
+                        WindowManager.MoveWindow(hWnd, (int) (SystemParameters.PrimaryScreenWidth / 2 ) + 1, 0, (int) SystemParameters.PrimaryScreenWidth / 2, (int) SystemParameters.PrimaryScreenHeight, true);
+                        break;
+                }
 
-                targetDesktop.Switch();
+            if (NoSwitch.HasValue && NoSwitch.Value)
+                return 0;
 
-            });
+            targetDesktop.Switch();
+
+            return 0;
         }
     }
 }

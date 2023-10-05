@@ -1,24 +1,20 @@
-﻿using McMaster.Extensions.CommandLineUtils;
-using WindowsDesktop;
+﻿using System.ComponentModel.DataAnnotations;
+using McMaster.Extensions.CommandLineUtils;
 
-namespace VDesk_Core.Commands
+namespace VDesk.Commands
 {
-    public static class SwitchCommand
+    [Command(Description = "Switch to a specific virtual desktop")]
+    internal class SwitchCommand : VdeskCommandBase
     {
-        public static string name => "Switch";
-        
-        public static void GetCommand(CommandLineApplication createCmd)
+        [Argument(0, Description = "Number of the virtual desktop to go to")]
+        [Range(0, 10)]
+        private int Number { get; }
+
+        public override int OnExecute(CommandLineApplication app)
         {
-            createCmd.Description = "Switch to specific desktop";
-            var number = createCmd.Argument<int>("number", "number of the desktop to switch to")
-                .Accepts(o => o.Range(1, 10))
-                .IsRequired();
-            
-            createCmd.OnExecute(()  =>
-            {
-                var virtualDesktop = VirtualDesktopHelper.CreateAndSelect(number.ParsedValue);
-                virtualDesktop.Switch();
-            });
+            var virtualDesktop = VirtualDesktopHelper.CreateAndSelect(Number);
+            virtualDesktop.Switch();
+            return 0;
         }
     }
 }

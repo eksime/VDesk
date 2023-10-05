@@ -1,25 +1,22 @@
-﻿using McMaster.Extensions.CommandLineUtils;
+﻿using System.ComponentModel.DataAnnotations;
+using McMaster.Extensions.CommandLineUtils;
 using WindowsDesktop;
 
-namespace VDesk_Core.Commands
+namespace VDesk.Commands
 {
-    public static class CreateCommand
+    [Command(Description = "Create virtual desktop")]
+    public class CreateCommand : VdeskCommandBase
     {
-        public static string name => "Create";
+        [Argument(0, Description = "Number of virtual desktop to create")]
+        [Range(0, 10)]
+        [Required]
+        public int Number { get; set; }
         
-        public static void GetCommand(CommandLineApplication createCmd)
+        public override int OnExecute(CommandLineApplication app)
         {
-            createCmd.Description = "Create desktop";
-            var number = createCmd.Argument<int>("number", "Name of the config")
-                .Accepts(o => o.Range(1, 10))
-                .IsRequired();
-            
-            createCmd.OnExecute(()  =>
-            {
-                
-                while (number.ParsedValue > VirtualDesktop.GetDesktops().Length)
-                    VirtualDesktop.Create();
-            });
+            while (Number > VirtualDesktop.GetDesktops().Length)
+                VirtualDesktop.Create();
+            return 0;
         }
     }
 }
