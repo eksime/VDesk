@@ -1,57 +1,65 @@
 # VDesk
+---
+This is a fork of [eksime/VDesk](https://github.com/eksime/VDesk) that support Windows 10 and 11.
+The main reason of the fork is that the original project seam to be abadonned.
+
+> **Note :** due to migration in .netcore, the command argument have change. If you install this version, you will need to addapt your usage of vdesk.
 
 #### Download:
 
 See the [releases page](https://github.com/eksime/VDesk/releases/).
 
+#### Requirements
+- Windows 10 build 19041 (20H1) or later
+- Windows 11 (Not tested yet)
+
 #### Usage:
 
-*Please note that VDesk requires Windows 10, and does not allow the use of virtual desktops on other versions of Windows*
+`vdesk create <number>`
 
-`vdesk create[:n]`
+`vdesk run [options] <Command>`
 
-`vdesk [on:<`*`n`*`>] [noswitch:{`*`true`*`|`*`false`*`}] <run:`*`command`*`> [`*`args`*`]`
+`vdesk move [options] <ProcessName>`
+
+`vdesk switch <Number>`
+
+Run `vdesk [command] --help` for more information about a command.
 
 #### Examples:
-Create total of n desktops:
+Create total of 5 desktops:
 
-`vdesk create:n`
+`vdesk create 5`
 
-Run a program on a new desktop:
+Run notepad on virtual desktop 4 without switching:
 
-`vdesk run:command [args]`
+`vdesk run -n -o 4 notepad.exe`
 
 > **Note:** If VDesk doesn't work at first, check the program's command line options for ways to create a new window - For example Chrome has the `/new-window` argument which allows it to function with VDesk.
 
-Run a program on a new desktop, and prevnt swapping to the new desktop:
+Move notepad on virtual desktop 5 half split to right
 
-`vdesk noswitch:true run:command [args]`
-
-> **Note:** The `noswitch:true` parameter is known to cause applications like Chrome / Skype to not launch on the correct desktop.
-
-Run a program on desktop n:
-
-`vdesk on:n run:command [args]`
+`vdesk move --half-split right -o 5 notepad`
 
 Run a program on desktop n, and prevent switching to it:
 
-`vdesk on:n noswitch:true run:command [args]`
+`vdesk run --on n --no-switch <command>`
 
-To launch notepad on a new desktop:
+To launch notepad on current desktop:
 
-`vdesk run:notepad`
+`vdesk run notepad`
 
 To launch notepad on desktop 3 and open `C:\some file.txt`:
 
-`vdesk on:3 run:notepad "C:\some file.txt"`
+`vdesk run -o 3 notepad -a "C:\some file.txt"`
 
 To launch a new VirtualBox vm fullscreen on its own virtual desktop, and switch to it:
 
-`vdesk run:"C:\Path to Vbox\VirtualBox.exe" --comment "VM" --startvm "vm-id-no" --fullscreen`
+`vdesk run "C:\Path to Vbox\VirtualBox.exe" -a "--comment \"VM\" --startvm \"vm-id-no\" --fullscreen"`
+> **Note:** to be tested !!
 
-To open Github in a new Chrome window on a new virtual desktop:
+To open Github in a new Chrome window on the second desktop split half screen to the left:
 
-`vdesk run:"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" /new-window "https://github.com"`
+`vdesk run -o 2 --half-split left "C:\Program Files\Google\Chrome\Application\chrome.exe" -a "/new-window https://github.com"`
 
 ## Copyright notice
 

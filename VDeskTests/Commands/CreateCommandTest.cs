@@ -1,4 +1,5 @@
-﻿using McMaster.Extensions.CommandLineUtils;
+﻿using AutoFixture;
+using McMaster.Extensions.CommandLineUtils;
 using VDesk.Commands;
 using VDesk.Services;
 using VDesk.Wrappers;
@@ -8,14 +9,11 @@ namespace VDeskTests.Commands
     public class CreateCommandTest : TestingContext<CreateCommand>
     {
         [Fact]
-        public void OnExecute_TwoTime_Ok()
+        public void OnExecute_WhenThreeVirtualDesktop_ShouldCallCreateTwoTimes()
         {
             // Arrange
-            var moqArray = new List<IVirtualDesktop>();
-            GetMockFor<IVirtualDesktopService>().Setup(s => s.GetDesktops()).Returns(moqArray.ToArray).Callback(() =>
-            {
-                moqArray.Add(new Mock<IVirtualDesktop>().Object);
-            });
+            var moqArray = new[]{new Mock<IVirtualDesktop>().Object, new Mock<IVirtualDesktop>().Object, new Mock<IVirtualDesktop>().Object};
+            GetMockFor<IVirtualDesktopService>().Setup(s => s.GetDesktops()).Returns(moqArray);
             var commandLineApp = new CommandLineApplication();
             var command = new CreateCommand(GetMockFor<IVirtualDesktopService>().Object)
             {
@@ -26,8 +24,7 @@ namespace VDeskTests.Commands
             command.OnExecute(commandLineApp);
 
             // Assert
-            GetMockFor<IVirtualDesktopService>().Verify(s => s.Create(), Times.Exactly(5));
-            
+            GetMockFor<IVirtualDesktopService>().Verify(s => s.Create(), Times.Exactly(2));
         }
     }
 }

@@ -15,13 +15,21 @@ namespace VDesk.Commands
         }
 
         [Argument(0, Description = "Number of virtual desktop to create")]
-        [Range(0, 10)]
+        [Range(1, 100)]
         [Required]
-        public int Number { get; set; }
+        public int Number { get; set; } = 1;
+        
         public override int OnExecute(CommandLineApplication app)
         {
-            while (Number > _virtualDesktopService.GetDesktops().Length)
+            var difference = Number - _virtualDesktopService.GetDesktops().Length;
+            if (difference <= 0)
+                return 0;
+            
+            for (var i = 0; i < difference; i++)
+            {
                 _virtualDesktopService.Create();
+            }
+            
             return 0;
         }
     }

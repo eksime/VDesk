@@ -16,7 +16,7 @@ namespace VDesk.Commands
         
         [Argument(0, Description = "Number of the virtual desktop to go to")]
         [Range(0, 10)]
-        private int Number { get; }
+        public int Number { get; }
 
         public override int OnExecute(CommandLineApplication app)
         {

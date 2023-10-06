@@ -1,18 +1,14 @@
+using AutoFixture;
+using AutoFixture.AutoMoq;
+using VDesk.Wrappers;
+
 namespace VDeskTests;
 
 public abstract class TestingContext<T> where T: class  
 {  
-    private readonly Dictionary<Type, Mock> _injectedMocks;  
-    private readonly Dictionary<Type, object> _injectedConcreteClasses;  
-    protected Fixture Fixture { get; }
-
-    protected TestingContext()  
-    {  
-        Fixture = new Fixture();  
-        Fixture.Customize(new AutoMoqCustomization());  
-        _injectedMocks = new Dictionary<Type, Mock>();  
-        _injectedConcreteClasses = new Dictionary<Type, object>();  
-    }
+    private readonly Dictionary<Type, Mock> _injectedMocks = new Dictionary<Type, Mock>();  
+    private readonly Dictionary<Type, object> _injectedConcreteClasses = new Dictionary<Type, object>();  
+    protected IFixture Fixture { get; } = new Fixture().Customize(new AutoMoqCustomization());
 
     protected Mock<TMockType> GetMockFor<TMockType>() where TMockType : class  
     {  

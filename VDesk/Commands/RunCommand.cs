@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using McMaster.Extensions.CommandLineUtils;
 using VDesk.Services;
+using VDesk.Utils;
 
 namespace VDesk.Commands
 {
@@ -9,25 +10,33 @@ namespace VDesk.Commands
     internal class RunCommand : VdeskCommandBase
     {
         private readonly IVirtualDesktopService _virtualDesktopService;
+        private readonly IProcessService _processService;
+        private readonly IWindowService _windowService;
         
-        public RunCommand(IVirtualDesktopService virtualDesktopService)
+        public RunCommand(IVirtualDesktopService virtualDesktopService, IProcessService processService, IWindowService windowService)
         {
             _virtualDesktopService = virtualDesktopService;
+            _processService = processService;
+            _windowService = windowService;
+
         }
         
         [Option("-o|--on", CommandOptionType.SingleValue, Description = "Desktop on witch the command is run")]
-        [Range(0, 10)]
+        [Range(1, 100)]
         public int DesktopNumber { get; set; }
 
-        [Option("-c|--command", CommandOptionType.SingleValue, Description = "Command to execute")]
+        [Argument(0, Description = "Command to execute")]
         [Required]
         public string Command { get; set; }
         
-        [Option("-a|--argument", CommandOptionType.SingleValue, Description = "arguments of the command")]
-        public string arguments { get; set; }
+        [Option("-a|--arguments", CommandOptionType.SingleValue, Description = "arguments of the command")]
+        public string? Arguments { get; set; }
         
         [Option("-n|--no-switch", Description = "Don't switch to virtual desktop")]
         public bool? NoSwitch { get; set; }
+        
+        [Option("--half-split")]
+        public HalfSplit? HalfSplit { get; set; }
 
         public override int OnExecute(CommandLineApplication app)
         {
@@ -36,28 +45,20 @@ namespace VDesk.Commands
             if (!NoSwitch.HasValue || !NoSwitch.Value)
                 targetDesktop.Switch();
 
-            var startInfo = new ProcessStartInfo(Command, arguments);
+            var proc = _processService.Start(Command, Arguments ?? string.Empty);
 
-            try
+
+            if (NoSwitch.HasValue && NoSwitch.Value)
             {
-                if (Directory.Exists(Path.GetDirectoryName(Command)))
-                    startInfo.WorkingDirectory = Path.GetDirectoryName(Command);
-            }
-            catch
-            {
-                //Don't really want to do anything here.
-            }
-
-            var proc = Process.Start(startInfo);
-
-            if (!NoSwitch.HasValue || !NoSwitch.Value)
-                return 0;
+                proc.WaitForMainWindow();
                 
-            for (var backoff = 1; proc.MainWindowHandle.ToInt64() == 0 && backoff <= 0x10000; backoff <<= 1)
-                Thread.Sleep(backoff);
+                if (proc.MainWindowHandle.ToInt64() != 0)
+                    _virtualDesktopService.MoveToDesktop(proc.MainWindowHandle, targetDesktop);
+            }
 
-            if (proc.MainWindowHandle.ToInt64() != 0)
-                _virtualDesktopService.MoveToDesktop(proc.MainWindowHandle, targetDesktop);
+            proc.WaitForMainWindow();
+            _windowService.MoveHalfSplit(proc.MainWindowHandle, HalfSplit);
+
             return 0;
         }
     }
