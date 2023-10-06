@@ -7,7 +7,7 @@ The main reason of the fork is that the original project seam to be abadonned.
 
 #### Download:
 
-See the [releases page](https://github.com/eksime/VDesk/releases/).
+See the [releases page](https://github.com/LittleVaaty/VDesk/releases/).
 
 #### Requirements
 - Windows 10 build 19041 (20H1) or later
