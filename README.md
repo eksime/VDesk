@@ -1,5 +1,6 @@
 # VDesk
 ---
+[![.NET](https://github.com/LittleVaaty/VDesk/actions/workflows/dotnet-CI.yml/badge.svg)](https://github.com/LittleVaaty/VDesk/actions/workflows/dotnet-CI.yml)
 This is a fork of [eksime/VDesk](https://github.com/eksime/VDesk) that support Windows 10 and 11.
 The main reason of the fork is that the original project seam to be abadonned.
 
