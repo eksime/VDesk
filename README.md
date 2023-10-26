@@ -13,7 +13,7 @@ See the [releases page](https://github.com/LittleVaaty/VDesk/releases/).
 
 #### Requirements
 - Windows 10 build 19041 (20H1) or later
-- Windows 11 (Not tested yet)
+- Windows 11 (Not working yet)
 
 #### Usage:
 
