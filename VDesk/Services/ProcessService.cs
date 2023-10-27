@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using VDesk.Wrappers;
 
 namespace VDesk.Services
 {
@@ -6,7 +7,9 @@ namespace VDesk.Services
     {
         Process? Start(ProcessStartInfo processInfo);
 
-        Process? Start(string command, string arguments);
+        Process? Start(string command, string arguments, out IntPtr hWnd);
+
+        IntPtr GetMainWindowHandle(Process process);
     }
 
     public class ProcessService : IProcessService
@@ -16,7 +19,8 @@ namespace VDesk.Services
         {
             return Process.Start(processInfo);
         }
-        public Process? Start(string command, string arguments)
+        
+        public Process? Start(string command, string arguments, out IntPtr hWnd)
         {
             var startInfo = new ProcessStartInfo(command, arguments);
 
@@ -30,7 +34,23 @@ namespace VDesk.Services
                 //Don't really want to do anything here.
             }
 
-            return Process.Start(startInfo);
+            var process = Process.Start(startInfo);
+            hWnd = GetMainWindowHandle(process);
+            return process;
+        }
+
+        public IntPtr GetMainWindowHandle(Process process)
+        {
+            IntPtr hWnd;
+            Process foregroundProcess;
+            do
+            {
+                hWnd = User32Wrapper.GetForegroundWindow();
+                User32Wrapper.GetWindowThreadProcessId(hWnd, out var processId);
+                foregroundProcess = Process.GetProcessById(processId);
+            } while (foregroundProcess.ProcessName != process.ProcessName);
+
+            return hWnd;
         }
     }
 }

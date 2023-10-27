@@ -5,6 +5,13 @@ namespace VDesk.Wrappers
     internal abstract class User32Wrapper
     {
         [DllImport("user32.dll", SetLastError = true)]
-        internal extern static bool MoveWindow(IntPtr hWnd, int X, int Y, int nWidth, int nHeight, bool bRepaint); 
+        internal extern static bool MoveWindow(IntPtr hWnd, int X, int Y, int nWidth, int nHeight, bool bRepaint);
+
+        [DllImport("user32.dll")]
+        public static extern IntPtr GetWindowThreadProcessId(IntPtr window, out int process);
+        
+        [DllImport("user32.dll")]
+        public static extern IntPtr GetForegroundWindow();
+
     }
 }

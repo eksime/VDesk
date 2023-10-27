@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.Diagnostics;
 using McMaster.Extensions.CommandLineUtils;
 using VDesk.Services;
 using VDesk.Utils;
@@ -44,20 +43,16 @@ namespace VDesk.Commands
 
             if (!NoSwitch.HasValue || !NoSwitch.Value)
                 targetDesktop.Switch();
-
-            var proc = _processService.Start(Command, Arguments ?? string.Empty);
-
+            
+            _processService.Start(Command, Arguments ?? string.Empty, out var hWnd);
 
             if (NoSwitch.HasValue && NoSwitch.Value)
             {
-                proc.WaitForMainWindow();
-                
-                if (proc.MainWindowHandle.ToInt64() != 0)
-                    _virtualDesktopService.MoveToDesktop(proc.MainWindowHandle, targetDesktop);
+                _virtualDesktopService.MoveToDesktop(hWnd, targetDesktop);
             }
+            
+            _windowService.MoveHalfSplit(hWnd, HalfSplit);
 
-            proc.WaitForMainWindow();
-            _windowService.MoveHalfSplit(proc.MainWindowHandle, HalfSplit);
 
             return 0;
         }

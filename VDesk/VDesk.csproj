@@ -2,18 +2,27 @@
 
     <PropertyGroup>
         <OutputType>Exe</OutputType>
-        <TargetFramework>net6.0-windows10.0.19041.0</TargetFramework>
+        <TargetFrameworks>net7.0-windows10.0.19041.0;net6.0-windows10.0.19041.0;net5.0-windows10.0.19041.0</TargetFrameworks>
         <RootNamespace>VDesk</RootNamespace>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <AssemblyVersion></AssemblyVersion>
         <FileVersion></FileVersion>
+        <LangVersion>10</LangVersion>
     </PropertyGroup>
 
     <ItemGroup>
         <PackageReference Include="McMaster.Extensions.CommandLineUtils" Version="4.1.0" />
         <PackageReference Include="McMaster.Extensions.Hosting.CommandLine" Version="4.1.0" />
         <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.1" />
-        <PackageReference Include="VirtualDesktop" Version="5.0.5" />
+        <PackageReference Include="System.Management" Version="6.0.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\VirtualDesktop\src\VirtualDesktop\VirtualDesktop.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\VirtualDesktop\src\VirtualDesktop\VirtualDesktop.csproj" />
     </ItemGroup>
 </Project>

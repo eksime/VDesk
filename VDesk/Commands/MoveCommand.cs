@@ -1,7 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
-using System.Windows;
-using Windows.Foundation.Metadata;
 using McMaster.Extensions.CommandLineUtils;
 using VDesk.Services;
 using VDesk.Utils;
@@ -13,15 +11,17 @@ namespace VDesk.Commands
     {
         private readonly IVirtualDesktopService _virtualDesktopService;
         private readonly IWindowService _windowService;
+        private readonly IProcessService _processService;
 
-        public MoveCommand(IVirtualDesktopService virtualDesktopService, IWindowService windowService)
+        public MoveCommand(IVirtualDesktopService virtualDesktopService, IWindowService windowService, IProcessService processService)
         {
             _virtualDesktopService = virtualDesktopService;
             _windowService = windowService;
+            _processService = processService;
         }
 
         [Option("-o|--on", CommandOptionType.SingleValue, Description = "Desktop on witch the command is run")]
-        [System.ComponentModel.DataAnnotations.Range(1, 10)]
+        [Range(1, 10)]
         public int DesktopNumber { get; set; } = 1;
 
         [Argument(0, Description = "Process to move")]
@@ -32,7 +32,7 @@ namespace VDesk.Commands
         public bool? NoSwitch { get; set; }
 
         [Option("--half-split")]
-        public HalfSplit? HalfSplit { get; }
+        public HalfSplit? HalfSplit { get; set; }
 
         public override int OnExecute(CommandLineApplication app)
         {
@@ -42,9 +42,10 @@ namespace VDesk.Commands
                 Console.WriteLine($"Process {ProcessName} not found");
                 return 1;
             }
-            var hWnd = process.MainWindowHandle;
-
+            
+            var hWnd = _processService.GetMainWindowHandle(process);
             var targetDesktop = _virtualDesktopService.CreateAndSelect(DesktopNumber);
+            
             _virtualDesktopService.MoveToDesktop(hWnd, targetDesktop);
            _windowService.MoveHalfSplit(hWnd, HalfSplit); 
 
