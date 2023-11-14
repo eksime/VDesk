@@ -25,4 +25,16 @@
     <ItemGroup>
       <ProjectReference Include="..\VirtualDesktop\src\VirtualDesktop\VirtualDesktop.csproj" />
     </ItemGroup>
+
+    <ItemGroup>
+      <Compile Remove="publish\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Remove="publish\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="publish\**" />
+    </ItemGroup>
 </Project>

@@ -6,7 +6,6 @@ namespace VDesk.Wrappers
     {
 
         VirtualDesktop Instance { get; }
-        void Switch();
     }
     
     public class VirtualDesktopWrapper : IVirtualDesktop
@@ -18,6 +17,5 @@ namespace VDesk.Wrappers
         }
 
         public VirtualDesktop Instance => _virtualDesktop;
-        public void Switch() => _virtualDesktop.Switch();
     }
 }

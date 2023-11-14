@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using McMaster.Extensions.CommandLineUtils;
+using Microsoft.Extensions.Logging;
 
 namespace VDesk.Commands
 {
@@ -8,7 +9,7 @@ namespace VDesk.Commands
     [Subcommand(typeof(CreateCommand), typeof(MoveCommand), typeof(RunCommand), typeof(SwitchCommand))]
     internal class VdeskCommand : VdeskCommandBase
     {
-        public override int OnExecute(CommandLineApplication app)
+        public override int Execute(CommandLineApplication app)
         {
             Console.WriteLine("Specify a subcommand");
             app.ShowHelp();
@@ -19,5 +20,9 @@ namespace VDesk.Commands
             => typeof(VdeskCommand).Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()
                 .InformationalVersion;
 
+        public VdeskCommand(ILogger<VdeskCommand> logger)
+            : base(logger)
+        {
+        }
     }
 }
