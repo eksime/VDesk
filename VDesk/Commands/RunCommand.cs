@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using McMaster.Extensions.CommandLineUtils;
+using Microsoft.Extensions.Logging;
 using VDesk.Services;
 using VDesk.Utils;
 
@@ -12,7 +13,8 @@ namespace VDesk.Commands
         private readonly IProcessService _processService;
         private readonly IWindowService _windowService;
         
-        public RunCommand(IVirtualDesktopService virtualDesktopService, IProcessService processService, IWindowService windowService)
+        public RunCommand(ILogger<RunCommand> logger,IVirtualDesktopService virtualDesktopService, IProcessService processService, IWindowService windowService)
+            : base(logger)
         {
             _virtualDesktopService = virtualDesktopService;
             _processService = processService;
@@ -37,12 +39,12 @@ namespace VDesk.Commands
         [Option("--half-split")]
         public HalfSplit? HalfSplit { get; set; }
 
-        public override int OnExecute(CommandLineApplication app)
+        public override int Execute(CommandLineApplication app)
         {
             var targetDesktop = _virtualDesktopService.CreateAndSelect(DesktopNumber);
 
             if (!NoSwitch.HasValue || !NoSwitch.Value)
-                targetDesktop.Switch();
+                _virtualDesktopService.Switch(targetDesktop);
             
             _processService.Start(Command, Arguments ?? string.Empty, out var hWnd);
 

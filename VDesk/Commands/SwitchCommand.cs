@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using McMaster.Extensions.CommandLineUtils;
+using Microsoft.Extensions.Logging;
 using VDesk.Services;
 
 namespace VDesk.Commands
@@ -9,7 +10,8 @@ namespace VDesk.Commands
     {
         private readonly IVirtualDesktopService _virtualDesktopService;
         
-        public SwitchCommand(IVirtualDesktopService virtualDesktopService)
+        public SwitchCommand(ILogger<SwitchCommand> logger, IVirtualDesktopService virtualDesktopService)
+            : base(logger)
         {
             _virtualDesktopService = virtualDesktopService;
         }
@@ -18,10 +20,10 @@ namespace VDesk.Commands
         [Range(0, 10)]
         public int Number { get; }
 
-        public override int OnExecute(CommandLineApplication app)
+        public override int Execute(CommandLineApplication app)
         {
             var virtualDesktop = _virtualDesktopService.CreateAndSelect(Number);
-            virtualDesktop.Switch();
+            _virtualDesktopService.Switch(virtualDesktop);
             return 0;
         }
     }
