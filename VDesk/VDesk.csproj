@@ -16,13 +16,18 @@
         <PackageReference Include="McMaster.Extensions.Hosting.CommandLine" Version="4.1.0" />
         <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.1" />
         <PackageReference Include="System.Management" Version="6.0.1" />
+        <PackageReference Include="VirtualDesktop" Version="5.0.5" />
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\VirtualDesktop\src\VirtualDesktop\VirtualDesktop.csproj" />
+      <Compile Remove="publish\**" />
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\VirtualDesktop\src\VirtualDesktop\VirtualDesktop.csproj" />
+      <EmbeddedResource Remove="publish\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="publish\**" />
     </ItemGroup>
 </Project>
