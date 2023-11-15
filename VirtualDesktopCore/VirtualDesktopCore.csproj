@@ -1,0 +1,81 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net7.0-windows10.0.19041.0;net6.0-windows10.0.19041.0;net5.0-windows10.0.19041.0</TargetFrameworks>
+	<PackageId>Slions.VirtualDesktop</PackageId>
+    <LangVersion>latest</LangVersion>
+    <UseWPF>true</UseWPF>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <Version>$(PublishVersion)</Version>
+    <Product>VirtualDesktop</Product>
+    <Authors>$(PublishAuthors)</Authors>
+    <Company>slions.net</Company>
+    <Copyright>Copyright © 2022 Manato KAMEYA</Copyright>
+    <Description>C# Wrapper for the Virtual Desktop API on Windows 11 (and Windows 10).</Description>
+    <RepositoryUrl>https://github.com/Slion/VirtualDesktop</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/Slion/VirtualDesktop</PackageProjectUrl>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageTags>Windows;Windows10;Windows11;Desktop;VirtualDesktop;</PackageTags>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <RootNamespace>WindowsDesktop</RootNamespace>
+    <Title>Virtual Desktop API for C#</Title>
+    <RepositoryType>git</RepositoryType>
+    <PackageReleaseNotes>$(PublishReleaseNotes)</PackageReleaseNotes>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0-windows10.0.19041.0|AnyCPU'">
+    <NoWarn>1701;1702;1591</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net6.0-windows10.0.19041.0|AnyCPU'">
+    <NoWarn>1701;1702;1591</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net5.0-windows10.0.19041.0|AnyCPU'">
+    <NoWarn>1701;1702;1591</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net5.0-windows10.0.19041.0|AnyCPU'">
+    <NoWarn>1701;1702;1591</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Interop\Build20348_0000\.interfaces\IVirtualDesktop.cs" />
+    <EmbeddedResource Include="Interop\Build20348_0000\.interfaces\IVirtualDesktopManagerInternal.cs" />
+    <EmbeddedResource Include="Interop\Build22621_2215\.interfaces\IVirtualDesktop.cs" />
+    <EmbeddedResource Include="Interop\Build22621_2215\.interfaces\IVirtualDesktopManagerInternal.cs" />
+    <None Remove="VirtualDesktop.csproj.DotSettings" />
+    <EmbeddedResource Include="Interop\Build10240_0000\.interfaces\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Interop\Build10240_0000\.interfaces\IApplicationView.cs" />
+    <EmbeddedResource Include="Interop\Build10240_0000\.interfaces\IApplicationViewCollection.cs" />
+    <EmbeddedResource Include="Interop\Build10240_0000\.interfaces\IVirtualDesktop.cs" />
+    <EmbeddedResource Include="Interop\Build10240_0000\.interfaces\IVirtualDesktopManagerInternal.cs" />
+    <EmbeddedResource Include="Interop\Build22000_0000\.interfaces\IVirtualDesktop.cs" />
+    <EmbeddedResource Include="Interop\Build22000_0000\.interfaces\IVirtualDesktopManagerInternal.cs" />
+	  <None Include="..\Directory.Build.props">
+		  <Pack>False</Pack>		  
+	  </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+
+</Project>

@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VDesk", "VDesk\VDesk.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VDeskTests", "VDeskTests\VDeskTests.csproj", "{6A3543B1-68E0-48EC-B43B-DAB60EB134FF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VirtualDesktop", "VirtualDesktop\VirtualDesktop.csproj", "{43797558-ABAF-457E-AB9A-D1ADCB400115}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VirtualDesktopCore", "VirtualDesktopCore\VirtualDesktopCore.csproj", "{43797558-ABAF-457E-AB9A-D1ADCB400115}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
