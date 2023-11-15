@@ -76,7 +76,6 @@ partial class VirtualDesktop
     {
         _source = source;
         _name = source.GetName();
-        source.GetWallpaperPath();
         Id = source.GetID();
     }
 

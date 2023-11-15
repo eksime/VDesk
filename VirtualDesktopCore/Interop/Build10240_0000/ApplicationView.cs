@@ -8,13 +8,4 @@ internal class ApplicationView : ComBaseObject<IApplicationView>, IApplicationVi
         : base(assembly, comObject)
     {
     }
-
-    public IntPtr GetThumbnailWindow()
-        => this.InvokeMethod<IntPtr>();
-
-    public string GetAppUserModelId()
-        => this.InvokeMethod<string>() ?? throw new Exception("Failed to get AppUserModelId.");
-
-    public Guid GetVirtualDesktopId()
-        => this.InvokeMethod<Guid>();
 }

@@ -12,11 +12,7 @@ public interface IVirtualDesktopManagerInternal
 {
     IEnumerable<IVirtualDesktop> GetDesktops();
 
-    IVirtualDesktop GetCurrentDesktop();
-
     IVirtualDesktop GetAdjacentDesktop(IVirtualDesktop pDesktopReference, AdjacentDesktop uDirection);
-
-    IVirtualDesktop FindDesktop(Guid desktopId);
 
     IVirtualDesktop CreateDesktop();
 
@@ -27,8 +23,4 @@ public interface IVirtualDesktopManagerInternal
     void MoveViewToDesktop(IntPtr hWnd, IVirtualDesktop desktop);
 
     void SetDesktopName(IVirtualDesktop desktop, string name);
-
-    void SetDesktopWallpaper(IVirtualDesktop desktop, string path);
-
-    void UpdateWallpaperPathForAllDesktops(string path);
 }

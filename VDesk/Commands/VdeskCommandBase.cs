@@ -18,10 +18,18 @@ namespace VDesk.Commands
         }
         public abstract int Execute(CommandLineApplication app);
 
+        // ReSharper disable once UnusedMember.Global
         public int OnExecute(CommandLineApplication app)
         {
             try
             {
+                if (Verbose.HasValue && Verbose.Value)
+                {
+                    //_logger.LogInformation($"*** {AssemblyInfo.Title} Library ***");
+                    //_logger.LogInformation($"Version:  {AssemblyInfo.VersionString}");
+                    _logger.LogInformation($"OS Build: {OS.Build}");
+                    //_logger.LogInformation($"Provider: {Provider.GetType().Name}");
+                }
                 return Execute(app);
             }
             catch (Exception e)

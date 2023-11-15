@@ -11,18 +11,9 @@ internal class VirtualDesktop : ComBaseObject<IVirtualDesktop>, IVirtualDesktop
     {
     }
 
-    public bool IsViewVisible(IntPtr hWnd)
-        => this.InvokeMethod<bool>(Args(hWnd));
+    public bool IsViewVisible(IntPtr hWnd) => InvokeMethod<bool>(Args(hWnd));
 
-    public Guid GetID()
-        => this._id ?? (Guid)(this._id = this.InvokeMethod<Guid>());
+    public Guid GetID() => _id ?? (Guid)(_id = InvokeMethod<Guid>());
 
-    public string GetName()
-        => this.InvokeMethod<HString>();
-
-    public string GetWallpaperPath()
-        => this.InvokeMethod<HString>();
-    
-    public bool IsRemote()
-        => this.InvokeMethod<bool>();
+    public string GetName() => InvokeMethod<HString>();
 }

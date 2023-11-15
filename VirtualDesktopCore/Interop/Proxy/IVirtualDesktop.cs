@@ -8,6 +8,4 @@ public interface IVirtualDesktop
     Guid GetID();
     
     string GetName();
-    
-    string GetWallpaperPath();
 }

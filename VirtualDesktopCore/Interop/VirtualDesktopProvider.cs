@@ -7,8 +7,6 @@ internal abstract class VirtualDesktopProvider
     public virtual bool IsSupported
         => true;
 
-    public abstract IVirtualDesktopManager VirtualDesktopManager { get; }
-
     public abstract IVirtualDesktopManagerInternal VirtualDesktopManagerInternal { get; }
 
     public bool IsInitialized { get; internal set; }
@@ -27,9 +25,6 @@ internal abstract class VirtualDesktopProvider
     {
         public override bool IsSupported
             => false;
-
-        public override IVirtualDesktopManager VirtualDesktopManager
-            => throw new NotSupportedException();
 
         public override IVirtualDesktopManagerInternal VirtualDesktopManagerInternal
             => throw new NotSupportedException();
