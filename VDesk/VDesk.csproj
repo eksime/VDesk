@@ -31,7 +31,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\VirtualDesktop\src\VirtualDesktop\VirtualDesktop.csproj" />
+      <ProjectReference Include="..\VirtualDesktop\VirtualDesktop.csproj" />
     </ItemGroup>
 
 </Project>

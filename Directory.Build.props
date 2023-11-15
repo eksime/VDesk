@@ -1,0 +1,22 @@
+<Project>
+	<PropertyGroup>
+		<PublishVersion>6.2.1</PublishVersion>
+		<PublishAuthors>Grabacr07, maciej-makowski, mzomparelli, Slion</PublishAuthors>
+		<PublishReleaseNotes>
+			v6.2.1
+			Add mzomparelli to list of authors
+
+			v6.2.0
+			Better OS version resolution
+
+			v6.1.0
+			Support OS Build 20348.1906
+
+			v6.0.0
+			Support OS Build 22621.2215
+
+			v5.2.0
+			Support for .NET 7.0
+		</PublishReleaseNotes>
+	</PropertyGroup>
+</Project>
