@@ -16,11 +16,11 @@ namespace VDesk.Services
             switch (split)
             {
                 case HalfSplit.Left:
-                    User32Wrapper.MoveWindow(hWnd, 0, 0, (int)SystemParameters.MaximizedPrimaryScreenWidth / 2,
+                    Win32.MoveWindow(hWnd, 0, 0, (int)SystemParameters.MaximizedPrimaryScreenWidth / 2,
                         (int) (SystemParameters.MaximizedPrimaryScreenHeight ), true);
                     break;
                 case HalfSplit.Right:
-                    User32Wrapper.MoveWindow(hWnd, (int)(SystemParameters.MaximizedPrimaryScreenWidth / 2) + 1, 0,
+                    Win32.MoveWindow(hWnd, (int)(SystemParameters.MaximizedPrimaryScreenWidth / 2) + 1, 0,
                         (int)SystemParameters.PrimaryScreenWidth / 2, (int) (SystemParameters.MaximizedPrimaryScreenHeight), true);
                     break;
                 case null:

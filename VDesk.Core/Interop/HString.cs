@@ -1,7 +1,7 @@
 ﻿using System.Runtime.InteropServices;
 using WinRT;
 
-namespace WindowsDesktop.Interop;
+namespace VDesk.Core.Interop;
 
 // ## Note
 // .NET 5 has removed WinRT support, so HString cannot marshal to System.String.

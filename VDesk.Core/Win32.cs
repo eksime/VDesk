@@ -1,6 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 
-namespace WindowsDesktop.Interop;
+namespace VDesk.Core;
 
 [ComImport]
 [Guid("6d5140c1-7436-11ce-8034-00aa006009fa")]
@@ -20,16 +20,4 @@ public interface IObjectArray
 
     [return: MarshalAs(UnmanagedType.Interface)]
     object GetAt(uint iIndex, in Guid riid);
-}
-
-internal static class PInvoke
-{
-    [DllImport("user32.dll")]
-    public static extern bool CloseWindow(IntPtr hWnd);
-
-    [DllImport("user32.dll")]
-    public static extern int GetWindowThreadProcessId(IntPtr hWnd, out int lpdwProcessId);
-
-    [DllImport("user32.dll", CharSet = CharSet.Unicode)]
-    public static extern uint RegisterWindowMessage(string lpProcName);
 }

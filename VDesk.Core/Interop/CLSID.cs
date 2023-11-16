@@ -1,4 +1,4 @@
-﻿namespace WindowsDesktop.Interop;
+﻿namespace VDesk.Core.Interop;
 
 // ReSharper disable once InconsistentNaming
 internal static class CLSID

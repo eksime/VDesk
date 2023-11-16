@@ -1,9 +1,11 @@
 ﻿using System.Runtime.InteropServices;
+// ReSharper disable InconsistentNaming
 
-namespace WindowsDesktop.Interop.Build22621;
+// ReSharper disable once CheckNamespace
+namespace VDesk.Core.Interop.Build22621_2215.ComInterfaces;
 
 [ComImport]
-[Guid("372e1d3b-38d3-42e4-a15b-8ab2b178f513") /* replace at runtime */]
+[Guid("372e1d3b-38d3-42e4-a15b-8ab2b178f513")]
 [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
 public interface IApplicationView
 {
@@ -100,6 +102,98 @@ public interface IApplicationView
     string GetEnterpriseId();
 
     bool IsMirrored();
+}
+
+[ComImport]
+[Guid("1841c6d7-4f9d-42c0-af41-8747538f10e5")]
+[InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+public interface IApplicationViewCollection
+{
+    IObjectArray GetViews();
+
+    IObjectArray GetViewsByZOrder();
+
+    IObjectArray GetViewsByAppUserModelId(string id);
+
+    IApplicationView GetViewForHwnd(IntPtr hwnd);
+
+    IApplicationView GetViewForApplication(object application);
+
+    IApplicationView GetViewForAppUserModelId(string id);
+
+    IntPtr GetViewInFocus();
+
+    void RefreshCollection();
+
+    int RegisterForApplicationViewChanges(object listener);
+
+    int RegisterForApplicationViewPositionChanges(object listener);
+
+    void UnregisterForApplicationViewChanges(int cookie);
+}
+
+[ComImport]
+[Guid("3f07f4be-b107-441a-af0f-39d82529072c")]
+[InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+internal interface IVirtualDesktop
+{
+    bool IsViewVisible(IApplicationView view);
+
+    Guid GetID();
+
+    HString GetName();
+
+    HString GetWallpaperPath();
+
+    bool IsRemote();
+}
+
+[ComImport]
+[Guid("a3175f2d-239c-4bd2-8aa0-eeba8b0b138e")]
+[InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+internal interface IVirtualDesktopManagerInternal
+{
+    int GetCount();
+
+    void MoveViewToDesktop(IApplicationView pView, IVirtualDesktop desktop);
+
+    bool CanViewMoveDesktops(IApplicationView pView);
+
+    IVirtualDesktop GetCurrentDesktop();
+
+    IObjectArray GetDesktops();
+
+    IVirtualDesktop GetAdjacentDesktop(IVirtualDesktop pDesktopReference, int uDirection);
+
+    void SwitchDesktop(IVirtualDesktop desktop);
+
+    IVirtualDesktop CreateDesktop();
+
+    void MoveDesktop(IVirtualDesktop desktop, int nIndex);
+
+    void RemoveDesktop(IVirtualDesktop pRemove, IVirtualDesktop pFallbackDesktop);
+
+    IVirtualDesktop FindDesktop(in Guid desktopId);
+
+    void GetDesktopSwitchIncludeExcludeViews(IVirtualDesktop desktop, out IObjectArray o1, out IObjectArray o2);
+
+    void SetDesktopName(IVirtualDesktop desktop, HString name);
+
+    void SetDesktopWallpaper(IVirtualDesktop desktop, HString path);
+
+    void UpdateWallpaperPathForAllDesktops(HString path);
+
+    void CopyDesktopState(IApplicationView pView0, IApplicationView pView1);
+
+    IVirtualDesktop CreateRemoteDesktop(HString name);
+
+    void SwitchRemoteDesktop(IVirtualDesktop desktop);
+
+    void SwitchDesktopWithAnimation(IVirtualDesktop desktop);
+
+    IVirtualDesktop GetLastActiveDesktop();
+
+    void WaitForAnimationToComplete();
 }
 
 [StructLayout(LayoutKind.Sequential)]

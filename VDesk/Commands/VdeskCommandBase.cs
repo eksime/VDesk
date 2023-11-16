@@ -10,11 +10,11 @@ namespace VDesk.Commands
         [Option("-v|--verbose", Description = "user verbose")]
         public bool? Verbose { get; set; }
         
-        private readonly ILogger<VdeskCommandBase> _logger;
+        protected readonly ILogger<VdeskCommandBase> Logger;
         
         protected VdeskCommandBase(ILogger<VdeskCommandBase> logger)
         {
-            _logger = logger;
+            Logger = logger;
         }
         public abstract int Execute(CommandLineApplication app);
 
@@ -27,15 +27,15 @@ namespace VDesk.Commands
                 {
                     //_logger.LogInformation($"*** {AssemblyInfo.Title} Library ***");
                     //_logger.LogInformation($"Version:  {AssemblyInfo.VersionString}");
-                    _logger.LogInformation($"OS Build: {OS.Build}");
-                    //_logger.LogInformation($"Provider: {Provider.GetType().Name}");
+                    Logger.LogInformation($"OS Build: {OS.Build}");
+                    //_logger.LogInformation($"Provider: {tProvider.GeType().Name}");
                 }
                 return Execute(app);
             }
             catch (Exception e)
             {
-                if(Verbose.HasValue && Verbose.Value) _logger.LogError(e, $"{e.Message}\n\r \tWindows version: {OS.Build} ");
-                else _logger.LogError($"{e.Message}\n\r \tWindows version: {OS.Build}");
+                if(Verbose.HasValue && Verbose.Value) Logger.LogError(e, $"{e.Message}\n\r \tWindows version: {OS.Build} ");
+                else Logger.LogError($"{e.Message}\n\r \tWindows version: {OS.Build}");
                 return 1;
             }
         }

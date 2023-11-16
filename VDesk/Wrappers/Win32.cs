@@ -2,7 +2,7 @@
 
 namespace VDesk.Wrappers
 {
-    internal abstract class User32Wrapper
+    internal static class Win32
     {
         [DllImport("user32.dll", SetLastError = true)]
         internal extern static bool MoveWindow(IntPtr hWnd, int X, int Y, int nWidth, int nHeight, bool bRepaint);

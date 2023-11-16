@@ -2,7 +2,7 @@
 
 namespace VDesk.Utils
 {
-    internal class OS
+    public class OS
     {
         /// <summary>
         /// Return the OS Build number such as: 22621.2215
@@ -13,7 +13,9 @@ namespace VDesk.Utils
             get
             {
                 Version v = Environment.OSVersion.Version;
-                Version actual = new(v.Major, v.Minor, v.Build, int.Parse(Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows NT\CurrentVersion").GetValue("UBR").ToString()));
+                Version actual = new(v.Major, v.Minor, v.Build,
+                    int.Parse(Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows NT\CurrentVersion")
+                        .GetValue("UBR").ToString()));
                 return actual;
             }
         }

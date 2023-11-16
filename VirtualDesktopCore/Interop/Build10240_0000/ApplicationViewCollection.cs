@@ -2,7 +2,7 @@
 
 namespace WindowsDesktop.Interop.Build10240;
 
-internal class ApplicationViewCollection : ComBaseObject<IApplicationViewCollection>, IApplicationViewCollection
+internal class ApplicationViewCollection : ComBaseObjectLegacy<IApplicationViewCollection>, IApplicationViewCollection
 {
     public ApplicationViewCollection(ComInterfaceAssembly assembly)
         : base(assembly)

@@ -2,7 +2,7 @@
 
 namespace WindowsDesktop.Interop.Build20348;
 
-internal class VirtualDesktop : ComBaseObject<IVirtualDesktop>, IVirtualDesktop
+internal class VirtualDesktop : ComBaseObjectLegacy<IVirtualDesktop>, IVirtualDesktop
 {
     private Guid? _id;
 

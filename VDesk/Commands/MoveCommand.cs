@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using McMaster.Extensions.CommandLineUtils;
 using Microsoft.Extensions.Logging;
+using VDesk.Core;
 using VDesk.Services;
 using VDesk.Utils;
 
@@ -10,16 +11,16 @@ namespace VDesk.Commands
     [Command(Description = "Move application already open to a specific desktop")]
     public class MoveCommand : VdeskCommandBase
     {
-        private readonly IVirtualDesktopService _virtualDesktopService;
+        private readonly IVirtualDesktopProvider _virtualDesktopProvider;
         private readonly IWindowService _windowService;
         private readonly IProcessService _processService;
 
-        public MoveCommand(ILogger<MoveCommand> logger, IVirtualDesktopService virtualDesktopService, IWindowService windowService, IProcessService processService)
+        public MoveCommand(ILogger<MoveCommand> logger, IWindowService windowService, IProcessService processService, IVirtualDesktopProvider virtualDesktopProvider)
             : base(logger)
         {
-            _virtualDesktopService = virtualDesktopService;
             _windowService = windowService;
             _processService = processService;
+            _virtualDesktopProvider = virtualDesktopProvider;
         }
 
         [Option("-o|--on", CommandOptionType.SingleValue, Description = "Desktop on witch the command is run")]
@@ -46,15 +47,23 @@ namespace VDesk.Commands
             }
             
             var hWnd = _processService.GetMainWindowHandle(process);
-            var targetDesktop = _virtualDesktopService.CreateAndSelect(DesktopNumber);
+            var desktopIds = _virtualDesktopProvider.GetDesktop();
+
+            while (DesktopNumber > desktopIds.Length)
+            {
+                desktopIds = desktopIds.Append(_virtualDesktopProvider.Create()).ToArray();
+            }
+
+            var desktopId = desktopIds[DesktopNumber - 1];
             
-            _virtualDesktopService.MoveToDesktop(hWnd, targetDesktop);
+            _virtualDesktopProvider.MoveToDesktop(hWnd, desktopId);
+            
            _windowService.MoveHalfSplit(hWnd, HalfSplit); 
 
             if (NoSwitch.HasValue && NoSwitch.Value)
                 return 0;
 
-            _virtualDesktopService.Switch(targetDesktop);
+            _virtualDesktopProvider.Switch(desktopId);
 
             return 0;
         }

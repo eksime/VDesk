@@ -2,8 +2,8 @@
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using VDesk.Commands;
+using VDesk.Core;
 using VDesk.Services;
-using WindowsDesktop;
 
 namespace VDesk;
 
@@ -12,23 +12,20 @@ static class VDesk
     [STAThread]
     public static int Main(string[] args)
     {
-        if (VirtualDesktop.IsSupported)
-            return MainAsync(args).GetAwaiter().GetResult();
-        Console.WriteLine("Virtual Desktops are not supported on this system.");
-        return 1;
+        return MainAsync(args).GetAwaiter().GetResult();
     }
 
     static async Task<int> MainAsync(string[] args)
     {
         return await new HostBuilder().ConfigureLogging((context, builder) =>
             {
-                builder.AddConsole();
+                builder.AddConsole(configure => configure.FormatterName = Microsoft.Extensions.Logging.Console.ConsoleFormatterNames.Systemd);
             })
             .ConfigureServices((context, services) =>
             {
-                services.AddScoped<IVirtualDesktopService, VirtualDesktopService>();
                 services.AddScoped<IWindowService, WindowService>();
                 services.AddScoped<IProcessService, ProcessService>();
+                services.AddVirtualDesktop();
             })
             .RunCommandLineApplicationAsync<VdeskCommand>(args);
     }

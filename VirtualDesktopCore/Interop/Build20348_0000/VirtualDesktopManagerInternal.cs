@@ -4,7 +4,7 @@ using WindowsDesktop.Interop.Proxy;
 
 namespace WindowsDesktop.Interop.Build20348;
 
-internal class VirtualDesktopManagerInternal : ComBaseObject<IVirtualDesktopManagerInternal>, IVirtualDesktopManagerInternal
+internal class VirtualDesktopManagerInternal : ComBaseObjectLegacy<IVirtualDesktopManagerInternal>, IVirtualDesktopManagerInternal
 {
     private readonly ApplicationViewCollection _applicationViewCollection;
 

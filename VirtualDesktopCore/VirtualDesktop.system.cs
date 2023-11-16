@@ -5,7 +5,7 @@ using WindowsDesktop.Interop;
 using WindowsDesktop.Interop.Build10240;
 using WindowsDesktop.Interop.Build20348;
 using WindowsDesktop.Interop.Build22000;
-using WindowsDesktop.Interop.Build22621;
+using WindowsDesktop.Interop.Build22621_2215;
 using WindowsDesktop.Interop.Proxy;
 using WindowsDesktop.Properties;
 using WindowsDesktop.Utils;
@@ -16,8 +16,7 @@ partial class VirtualDesktop
 {
     private static readonly VirtualDesktopProvider Provider;
     private static readonly ConcurrentDictionary<Guid, VirtualDesktop> KnownDesktops = new();
-    private static readonly ExplorerRestartListenerWindow ExplorerRestartListener = new(() => HandleExplorerRestarted());
-    private static VirtualDesktopConfiguration _configuration = new();
+    //private static readonly ExplorerRestartListenerWindow ExplorerRestartListener = new(() => HandleExplorerRestarted());
     private static ComInterfaceAssembly? _assembly;
     private readonly IVirtualDesktop _source;
     private string _name;
@@ -68,7 +67,7 @@ partial class VirtualDesktop
             return new VirtualDesktopProvider10240();
         }
        
-        return new VirtualDesktopProvider.NotSupported();
+        return new NotSupportedVirtualDesktop();
     }
 
 
@@ -82,29 +81,6 @@ partial class VirtualDesktop
     internal static VirtualDesktop FromComObject(IVirtualDesktop desktop)
         => KnownDesktops.GetOrAdd(desktop.GetID(), _ => new VirtualDesktop(desktop));
 
-    internal static void InitializeIfNeeded()
-    {
-        if (IsSupported == false) throw new NotSupportedException("You must target Windows 10 or later in your 'app.manifest' and run without debugging.");
-        if (Provider.IsInitialized) return;
-        
-        ExplorerRestartListener.Show();
-        InitializeCore();
-    }
-
-    private static void HandleExplorerRestarted()
-    {
-        KnownDesktops.Clear();
-        Provider.IsInitialized = false;
-        InitializeCore();
-    }
-
-    private static void InitializeCore()
-    {
-        Provider.Initialize(_assembly ??= new ComInterfaceAssemblyBuilder(_configuration).GetAssembly());
-
-        //_notificationListener?.Dispose();
-        //_notificationListener = Provider.VirtualDesktopNotificationService.Register(new EventProxy());
-    }
 
     private static T? SafeInvoke<T>(Func<T> action, params HResult[] hResult)
     {

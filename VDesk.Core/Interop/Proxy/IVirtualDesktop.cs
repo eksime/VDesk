@@ -1,4 +1,4 @@
-﻿namespace WindowsDesktop.Interop.Proxy;
+﻿namespace VDesk.Core.Interop.Proxy;
 
 [ComInterface]
 public interface IVirtualDesktop

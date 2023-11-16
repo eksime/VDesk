@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.IO;
 using VDesk.Wrappers;
 
 namespace VDesk.Services
@@ -45,8 +46,8 @@ namespace VDesk.Services
             Process foregroundProcess;
             do
             {
-                hWnd = User32Wrapper.GetForegroundWindow();
-                User32Wrapper.GetWindowThreadProcessId(hWnd, out var processId);
+                hWnd = Win32.GetForegroundWindow();
+                Win32.GetWindowThreadProcessId(hWnd, out var processId);
                 foregroundProcess = Process.GetProcessById(processId);
             } while (foregroundProcess.ProcessName != process.ProcessName);
 

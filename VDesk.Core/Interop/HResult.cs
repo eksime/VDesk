@@ -1,4 +1,4 @@
-﻿namespace WindowsDesktop.Interop;
+﻿namespace VDesk.Core.Interop;
 
 internal enum HResult : uint
 {

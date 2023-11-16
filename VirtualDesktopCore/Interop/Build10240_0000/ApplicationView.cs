@@ -2,7 +2,7 @@
 
 namespace WindowsDesktop.Interop.Build10240;
 
-internal class ApplicationView : ComBaseObject<IApplicationView>, IApplicationView
+internal class ApplicationView : ComBaseObjectLegacy<IApplicationView>, IApplicationView
 {
     public ApplicationView(ComInterfaceAssembly assembly, object comObject)
         : base(assembly, comObject)

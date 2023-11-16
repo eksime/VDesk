@@ -43,13 +43,12 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.0.1" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="Interop\Build20348_0000\.interfaces\IVirtualDesktop.cs" />
     <EmbeddedResource Include="Interop\Build20348_0000\.interfaces\IVirtualDesktopManagerInternal.cs" />
-    <EmbeddedResource Include="Interop\Build22621_2215\.interfaces\IVirtualDesktop.cs" />
-    <EmbeddedResource Include="Interop\Build22621_2215\.interfaces\IVirtualDesktopManagerInternal.cs" />
     <None Remove="VirtualDesktop.csproj.DotSettings" />
     <EmbeddedResource Include="Interop\Build10240_0000\.interfaces\AssemblyInfo.cs" />
     <EmbeddedResource Include="Interop\Build10240_0000\.interfaces\IApplicationView.cs" />
