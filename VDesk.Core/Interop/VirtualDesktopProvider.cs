@@ -1,13 +1,19 @@
-﻿using VDesk.Core.Interop.Proxy;
+﻿using VDesk.Core.Interop.ComObjects;
+using VDesk.Core.Interop.Proxy;
 
 namespace VDesk.Core.Interop;
 
-internal abstract class VirtualDesktopProvider : IVirtualDesktopProvider
+internal class VirtualDesktopProvider<TVirtualDesktopManagerInternal, TVirtualDesktop, TApplicationView, TApplicationViewCollection> : IVirtualDesktopProvider
 {
-    protected IApplicationViewCollection ApplicationViewCollection;
-    protected IVirtualDesktopManagerInternal VirtualDesktopManagerInternal;
-    protected Dictionary<Guid, IVirtualDesktop> KnownDesktops = new();
+    private readonly IApplicationViewCollection _applicationViewCollection;
+    private readonly IVirtualDesktopManagerInternal _virtualDesktopManagerInternal;
+    private Dictionary<Guid, IVirtualDesktop> _knownDesktops = new();
 
+    public VirtualDesktopProvider()
+    {
+        _applicationViewCollection = new ApplicationViewCollection<TApplicationViewCollection, TApplicationView>();
+        _virtualDesktopManagerInternal = new VirtualDesktopManagerInternal<TVirtualDesktopManagerInternal, TVirtualDesktop, TApplicationView>(_applicationViewCollection);
+    }
     public virtual bool IsSupported
         => true;
 
@@ -17,26 +23,26 @@ internal abstract class VirtualDesktopProvider : IVirtualDesktopProvider
 
     public Guid[] GetDesktop()
     {
-        KnownDesktops = VirtualDesktopManagerInternal
+        _knownDesktops = _virtualDesktopManagerInternal
             .GetDesktops().ToDictionary(d => d.GetID(), d => d);
 
-        return KnownDesktops.Keys.ToArray();
+        return _knownDesktops.Keys.ToArray();
     }
 
     public Guid Create()
     {
-        var virtualDesktop = VirtualDesktopManagerInternal
+        var virtualDesktop = _virtualDesktopManagerInternal
             .CreateDesktop();
-        KnownDesktops.Add(virtualDesktop.GetID(), virtualDesktop);
+        _knownDesktops.Add(virtualDesktop.GetID(), virtualDesktop);
 
         return virtualDesktop.GetID();
     }
 
     public void MoveToDesktop(IntPtr hWnd, Guid virtualDesktopId)
     {
-        if (KnownDesktops.TryGetValue(virtualDesktopId, out var virtualDesktop))
+        if (_knownDesktops.TryGetValue(virtualDesktopId, out var virtualDesktop))
         {
-            VirtualDesktopManagerInternal.MoveViewToDesktop(hWnd, virtualDesktop);
+            _virtualDesktopManagerInternal.MoveViewToDesktop(hWnd, virtualDesktop);
         }
         else
         {
@@ -46,19 +52,13 @@ internal abstract class VirtualDesktopProvider : IVirtualDesktopProvider
 
     public void Switch(Guid virtualDesktopId)
     {
-        if (KnownDesktops.TryGetValue(virtualDesktopId, out var virtualDesktop))
+        if (_knownDesktops.TryGetValue(virtualDesktopId, out var virtualDesktop))
         {
-            VirtualDesktopManagerInternal.SwitchDesktop(virtualDesktop);
+            _virtualDesktopManagerInternal.SwitchDesktop(virtualDesktop);
         }
         else
         {
             throw new KeyNotFoundException($"cannot found virtualdesktop with key {virtualDesktopId.ToString()}");
         }
     }
-}
-
-internal class NotSupportedVirtualDesktop : VirtualDesktopProvider
-{
-    public override bool IsSupported
-        => false;
 }

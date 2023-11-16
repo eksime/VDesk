@@ -1,10 +1,10 @@
 ﻿using System.Runtime.InteropServices;
-// ReSharper disable InconsistentNaming
 
-namespace VDesk.Core.Interop.Build22621_2215;
+// ReSharper disable once CheckNamespace
+namespace VDesk.Core.Interop.Build10240_0000;
 
 [ComImport]
-[Guid("372e1d3b-38d3-42e4-a15b-8ab2b178f513")]
+[Guid("9AC0B5C8-1484-4C5B-9533-4134A0F97CEA")]
 [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
 public interface IApplicationView
 {
@@ -22,8 +22,7 @@ public interface IApplicationView
     void SetPosition(in IntPtr position);
     void InsertAfterWindow(IntPtr hwnd);
     Rect GetExtendedFramePosition();
-    [return: MarshalAs(UnmanagedType.LPWStr)]
-    string GetAppUserModelId();
+    [return: MarshalAs(UnmanagedType.LPWStr)] string GetAppUserModelId();
     void SetAppUserModelId([MarshalAs(UnmanagedType.LPWStr)] string id);
     bool IsEqualByAppUserModelId(string id);
     uint GetViewState();
@@ -53,15 +52,13 @@ public interface IApplicationView
     void Flash();
     IApplicationView GetRootSwitchableOwner();
     IObjectArray EnumerateOwnershipTree();
-
     [return: MarshalAs(UnmanagedType.LPWStr)]
     string GetEnterpriseId();
-
     bool IsMirrored();
 }
 
 [ComImport]
-[Guid("1841c6d7-4f9d-42c0-af41-8747538f10e5")]
+[Guid("2C08ADF0-A386-4B35-9250-0FE183476FCC")]
 [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
 public interface IApplicationViewCollection
 {
@@ -79,21 +76,18 @@ public interface IApplicationViewCollection
 }
 
 [ComImport]
-[Guid("3f07f4be-b107-441a-af0f-39d82529072c")]
+[Guid("FF72FFDD-BE7E-43FC-9C03-AD81681E88E4")]
 [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
-internal interface IVirtualDesktop
+public interface IVirtualDesktop
 {
     bool IsViewVisible(IApplicationView view);
     Guid GetID();
-    HString GetName();
-    HString GetWallpaperPath();
-    bool IsRemote();
 }
 
 [ComImport]
-[Guid("a3175f2d-239c-4bd2-8aa0-eeba8b0b138e")]
+[Guid("F31574D6-B682-4CDC-BD56-1827860ABEC6")]
 [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
-internal interface IVirtualDesktopManagerInternal
+public interface IVirtualDesktopManagerInternal
 {
     int GetCount();
     void MoveViewToDesktop(IApplicationView pView, IVirtualDesktop desktop);
@@ -103,19 +97,8 @@ internal interface IVirtualDesktopManagerInternal
     IVirtualDesktop GetAdjacentDesktop(IVirtualDesktop pDesktopReference, int uDirection);
     void SwitchDesktop(IVirtualDesktop desktop);
     IVirtualDesktop CreateDesktop();
-    void MoveDesktop(IVirtualDesktop desktop, int nIndex);
     void RemoveDesktop(IVirtualDesktop pRemove, IVirtualDesktop pFallbackDesktop);
     IVirtualDesktop FindDesktop(in Guid desktopId);
-    void GetDesktopSwitchIncludeExcludeViews(IVirtualDesktop desktop, out IObjectArray o1, out IObjectArray o2);
-    void SetDesktopName(IVirtualDesktop desktop, HString name);
-    void SetDesktopWallpaper(IVirtualDesktop desktop, HString path);
-    void UpdateWallpaperPathForAllDesktops(HString path);
-    void CopyDesktopState(IApplicationView pView0, IApplicationView pView1);
-    IVirtualDesktop CreateRemoteDesktop(HString name);
-    void SwitchRemoteDesktop(IVirtualDesktop desktop);
-    void SwitchDesktopWithAnimation(IVirtualDesktop desktop);
-    IVirtualDesktop GetLastActiveDesktop();
-    void WaitForAnimationToComplete();
 }
 
 [StructLayout(LayoutKind.Sequential)]
