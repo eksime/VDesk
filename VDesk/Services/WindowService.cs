@@ -1,5 +1,4 @@
-﻿using System.Windows;
-using VDesk.Utils;
+﻿using VDesk.Utils;
 using VDesk.Wrappers;
 
 namespace VDesk.Services
@@ -16,12 +15,12 @@ namespace VDesk.Services
             switch (split)
             {
                 case HalfSplit.Left:
-                    Win32.MoveWindow(hWnd, 0, 0, (int)SystemParameters.MaximizedPrimaryScreenWidth / 2,
-                        (int) (SystemParameters.MaximizedPrimaryScreenHeight ), true);
+                    Win32.MoveWindow(hWnd, 0, 0, (int)Win32.GetSystemMetrics((int)SM.CXMAXIMIZED) / 2,
+                        (int) (Win32.GetSystemMetrics((int)SM.CYMAXIMIZED) ), true);
                     break;
                 case HalfSplit.Right:
-                    Win32.MoveWindow(hWnd, (int)(SystemParameters.MaximizedPrimaryScreenWidth / 2) + 1, 0,
-                        (int)SystemParameters.PrimaryScreenWidth / 2, (int) (SystemParameters.MaximizedPrimaryScreenHeight), true);
+                    Win32.MoveWindow(hWnd, (int)(Win32.GetSystemMetrics((int)SM.CXMAXIMIZED) / 2) + 1, 0,
+                        (int)Win32.GetSystemMetrics((int)SM.CXMAXIMIZED) / 2, (int) (Win32.GetSystemMetrics((int)SM.CYMAXIMIZED)), true);
                     break;
                 case null:
                     break;

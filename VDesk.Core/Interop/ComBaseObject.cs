@@ -64,6 +64,14 @@ public class ComBaseObject<TInterface>
         var shell = Activator.CreateInstance(shellType) as IServiceProvider
                     ?? throw new Exception("Failed to create an instance of ImmersiveShell.");
 
-        return shell.QueryService(guidService ?? type.GUID, type.GUID);
+        try
+        {
+            return shell.QueryService(guidService ?? type.GUID, type.GUID);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine($"{type} - {e.Message}");
+            throw;
+        }
     }
 }

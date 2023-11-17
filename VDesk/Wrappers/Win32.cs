@@ -12,6 +12,14 @@ namespace VDesk.Wrappers
         
         [DllImport("user32.dll")]
         public static extern IntPtr GetForegroundWindow();
+        
+        [DllImport("user32.dll")]
+        public static extern int GetSystemMetrics(int nIndex);
+    }
 
+    public enum SM
+    {
+        CXMAXIMIZED = 61,
+        CYMAXIMIZED = 62
     }
 }

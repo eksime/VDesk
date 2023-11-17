@@ -9,7 +9,6 @@
         <AssemblyVersion></AssemblyVersion>
         <FileVersion></FileVersion>
         <LangVersion>10</LangVersion>
-        <UseWPF>true</UseWPF>
     </PropertyGroup>
     
     <ItemGroup>

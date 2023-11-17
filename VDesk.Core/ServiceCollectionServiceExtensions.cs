@@ -1,11 +1,11 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using VDesk.Core.Interop;
+using VDesk.Core.Interop.Build19044_0000;
 using Build10240 = VDesk.Core.Interop.Build10240_0000;
 using Build22621 = VDesk.Core.Interop.Build22621_2215;
 using Build20348 = VDesk.Core.Interop.Build20348_0000;
 using Build22000 = VDesk.Core.Interop.Build22000_0000;
 using Build17134 = VDesk.Core.Interop.Build17134_0000;
-using Build19045 = VDesk.Core.Interop.Build19045_0000;
 using VDesk.Utils;
 
 namespace VDesk.Core;
@@ -28,9 +28,9 @@ public static class ServiceCollectionServiceExtensions
         {
             services.AddScoped<IVirtualDesktopProvider, VirtualDesktopProvider<Build20348.IVirtualDesktopManagerInternal, Build20348.IVirtualDesktop, Build20348.IApplicationView, Build20348.IApplicationViewCollection>>();
         }
-        else if (v >= new Version(10, 0, 19045, 0))
+        else if (v >= new Version(10, 0, 19044, 0))
         {
-            services.AddScoped<IVirtualDesktopProvider, VirtualDesktopProvider<Build19045.IVirtualDesktopManagerInternal, Build19045.IVirtualDesktop, Build19045.IApplicationView, Build19045.IApplicationViewCollection>>();
+            services.AddScoped<IVirtualDesktopProvider, VirtualDesktopProvider<IVirtualDesktopManagerInternal, IVirtualDesktop, IApplicationView, IApplicationViewCollection>>();
         }
         else if (v >= new Version(10, 0, 17134, 0))
         {
@@ -42,7 +42,7 @@ public static class ServiceCollectionServiceExtensions
         }
         else
         {
-            throw new NotSupportedException();
+            //throw new NotSupportedException();
         }
 
         return services;

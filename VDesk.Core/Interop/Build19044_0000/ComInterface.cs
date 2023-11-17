@@ -1,6 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 
-namespace VDesk.Core.Interop.Build19045_0000;
+namespace VDesk.Core.Interop.Build19044_0000;
 
 [ComImport]
 [Guid("372E1D3B-38D3-42E4-A15B-8AB2B178F513")]
